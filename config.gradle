@@ -1,0 +1,57 @@
+
+ext {
+    //配置密匙秘钥地址
+    keystore = "/keystore/mvp.jks"
+
+    //统一定义APP的基本信息 在其他modle也可以引用用一个地方
+    APP = [
+            applicationId    : "com.yunsoft.mvpdemo",//应用包名
+            minSdkVersion    : 19,
+            targetSdkVersion : 26,
+            versionName      : "1.1.0",
+            versionCode      : 2,
+            CHANNEL          : "mvp",//渠道名称
+            buildToolsVersion: "26.0.2",
+            compileSdkVersion: 26,
+    ]
+
+    JAR =[//包文件的版本
+            supportVersion : "27.1.1",
+            retrofitversion : "2.3.0",
+            logginginterceptor:"3.2.0",
+            rxjava:"2.1.7",
+            rxandroid:"2.0.1",
+            rxlifecycle:"2.2.1",
+            rxlifecyclecomponents:"2.2.1",
+            logger:"1.15",
+            fastjson:"1.2.7",
+            greendao:"3.2.2",
+            sqlcipher:"3.5.6",
+            glide:"4.7.1",
+            glideintegration:"4.7.1",
+            guavaVersion:"18.0",
+            roomVersion:"1.0.0"
+
+    ]
+
+
+    UMENG = [ //友盟配置信息
+            APPKEY : "5a753044f29d986edf000127",
+            CHANNEL: APP.CHANNEL
+    ]
+
+    JPUSH = [ //极光推送
+            PKGNAME: APP.applicationId,
+            APPKEY : "991e87d4583c6f8b38fb0290",
+            CHANNEL: APP.CHANNEL
+    ]
+
+    LOG = [ //日志的标识
+        LOG_TAG : "mvp_log"
+    ]
+
+    BUGLY = [//bugly账号
+            ID : "8c9b7bd664",
+            KEY: "e20d87d3-157f-4ec8-927c-1e863b4e8882"
+    ]
+}

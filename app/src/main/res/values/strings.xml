@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">mvpdemo</string>
+    <string name="msg_networkexcption">网络出错了</string>
+    <string name="msg_unkownexcetion">出现未知错误，稍后再试</string>
+</resources>

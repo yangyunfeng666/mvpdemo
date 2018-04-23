@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="anim_view">
+        <item name="android:windowEnterAnimation">@anim/top_in</item>
+        <item name="android:windowExitAnimation">@anim/top_out</item>
+    </style>
+
+    <declare-styleable name="CircleProgressView">
+        <attr name="cpv_progressNormalColor" format="color"/>
+        <!--还没有加载的样式-->
+        <attr name="cpv_progressReachColor" format="color"/>
+        <!--已经加载的样式-->
+        <attr name="cpv_progressTextColor" format="color"/>
+        <!--加载显示的百分比字体颜色-->
+        <attr name="cpv_progressTextSize" format="dimension"/>
+        <!--加载显示的百分字体大小-->
+        <attr name="cpv_progressTextOffset" format="dimension"/>
+        <!--加载显示的百分字体字间距-->
+        <attr name="cpv_progressNormalSize" format="dimension"/>
+        <!--加载未完成的角度调的宽度-->
+        <attr name="cpv_progressReachSize" format="dimension"/>
+        <!--加载已完成的角度调的宽度-->
+        <attr name="cpv_radius" format="dimension"/>
+        <!--加载进度圆圈的大小-->
+        <attr name="cpv_progressTextVisible" format="boolean"/>
+        <!--加载进度显示字体的大小-->
+        <attr name="cpv_progressStartArc" format="integer"/>
+        <!--圆弧加载条已经完成初始角度-->
+        <attr name="cpv_progressTextSkewX" format="dimension"/>
+        <!--进度字体的倾斜因子-->
+        <attr name="cpv_progressTextPrefix" format="string"/>
+        <!--进度字体显示前缀-->
+        <attr name="cpv_progressTextSuffix" format="string"/>
+        <!--进度字体显示后缀-->
+        <attr name="cpv_innerBackgroundColor" format="color"/>
+        <!--内部背景填充颜色-->
+        <attr name="cpv_progressStyle" format="enum">
+            <enum name="Normal" value="0"/>
+            <!--普通的圆环加载 显示百分比样式-->
+            <enum name="FillInner" value="1"/>
+            <!--水球 水上涨样式-->
+            <enum name="FillInnerArc" value="2"/>
+            <!--加载圆饼图样式-->
+        </attr>
+        <attr name="cpv_innerPadding" format="dimension"/>
+        <!--内部圆饼图与外部圆圈的间隔-->
+        <attr name="cpv_outerColor" format="color"/>
+        <!--圆饼图外部圆圈的颜色-->
+        <attr name="cpv_outerSize" format="dimension"/>
+        <!--圆饼图外部圆圈的宽度-->
+        <attr name="cpv_reachCapRound" format="boolean"/>
+        <!--是否有线冒 是否线多出来一个帽子-->
+    </declare-styleable>
+
+
+    <declare-styleable name="ShapeImageViewStyle">
+        <!--图片外边框的颜色-->
+        <attr name="riv_border_color" format="color"/>
+        <!--图片外边框的宽度-->
+        <attr name="riv_border_width" format="dimension"/>
+        <!--图片外边框的圆角弧度-->
+        <attr name="riv_corner_radius" format="dimension"/>
+        <!--图片外边框的是否需要圆角-->
+        <attr name="riv_is_circle" format="boolean"/>
+        <!--图片按在上面外边框的的颜色-->
+        <attr name="riv_pressed_border_color" format="color"/>
+        <!--图片按在上面外边框的的宽度-->
+        <attr name="riv_pressed_border_width" format="dimension"/>
+        <!--图片按在上面外边框的的宽度-->
+        <attr name="riv_pressed_mask_color" format="color"/>
+        <!--未使用-->
+        <attr name="riv_pressed_mode_enabled" format="boolean"/>
+        <!--是否可以按压-->
+    </declare-styleable>
+</resources>

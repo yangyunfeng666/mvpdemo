@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="200dp"
+    android:fitsSystemWindows="false">
+
+    <RelativeLayout
+        android:id="@+id/prl_image"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@color/black">
+
+
+        <com.kye.basemodule.glide.view.GlideImageView
+            android:id="@+id/glideImageView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:riv_border_color="@color/orange"
+            app:riv_border_width="2dp"
+            app:riv_corner_radius="10dp"
+            app:riv_is_circle="false"
+            app:riv_pressed_border_color="@color/colorPrimary"
+            app:riv_pressed_border_width="2dp"
+            app:riv_pressed_mask_color="@color/transparent20"
+            app:riv_pressed_mode_enabled="true"
+           />
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/maskView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/prl_image"
+        android:layout_alignTop="@+id/prl_image"
+        android:background="@color/transparent10"
+        android:visibility="visible"/>
+
+    <com.kye.basemodule.glide.view.CircleProgressView
+        android:id="@+id/progressView1"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+        android:progress="0"
+        app:cpv_innerPadding="2dp"
+        app:cpv_outerColor="@android:color/holo_red_dark"
+        app:cpv_outerSize="3dp"
+        app:cpv_progressNormalColor="@color/transparent"
+        app:cpv_progressReachColor="@color/transparent90_white"
+        app:cpv_progressStyle="FillInnerArc"/>
+
+    <com.kye.basemodule.glide.view.CircleProgressView
+        android:id="@+id/progressView2"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:layout_margin="10dp"
+        android:progress="0"
+        android:visibility="gone"
+        app:cpv_progressNormalColor="@color/transparent10"
+        app:cpv_progressReachColor="@color/transparent90_white"
+        app:cpv_progressStyle="FillInner"
+        app:cpv_progressTextColor="@color/red"
+        app:cpv_progressTextSize="13sp"
+        app:cpv_progressTextVisible="true"/>
+
+    <com.kye.basemodule.glide.view.CircleProgressView
+        android:id="@+id/progressView3"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_centerInParent="true"
+        android:progress="0"
+        android:visibility="gone"
+        app:cpv_outerColor="@color/transparent90_white"
+        app:cpv_outerSize="2dp"
+        app:cpv_progressNormalColor="@android:color/holo_red_dark"
+        app:cpv_progressReachColor="@color/transparent90_white"
+        app:cpv_progressStyle="Normal"
+        app:cpv_progressTextColor="@color/transparent90_white"
+        app:cpv_progressTextSize="13sp"/>
+</RelativeLayout>

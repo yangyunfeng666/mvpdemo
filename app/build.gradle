@@ -1,0 +1,133 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao' // apply plugin
+
+//定义基本APP
+def APP = rootProject.ext.APP
+//定义友盟
+def UMENG = rootProject.ext.UMENG
+//定义极光
+def JPUSH = rootProject.ext.JPUSH
+
+def BUGLY = rootProject.ext.BUGLY
+
+def LOG = rootProject.ext.LOG
+
+//定义keystore文件目录
+def KEYSTORE = new File("" + rootProject.projectDir + rootProject.ext.keystore);
+
+def JAR =  rootProject.ext.JAR
+
+android {
+    compileSdkVersion APP.compileSdkVersion
+    defaultConfig {
+        applicationId APP.applicationId
+        minSdkVersion APP.minSdkVersion
+        targetSdkVersion APP.targetSdkVersion
+        versionCode APP.versionCode
+        versionName APP.versionName
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        //room 数据库输出的sql目录
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = ["room.schemaLocation":
+                                     "$projectDir/schemas".toString()]
+            }
+        }
+    }
+    // 签名配置
+    signingConfigs {
+        release {
+            try {
+                storeFile KEYSTORE
+                storePassword project.hasProperty("STOREPASSWORD") ? STOREPASSWORD : ''
+                keyAlias project.hasProperty("KEYALIAS") ? KEYALIAS : ''
+                keyPassword project.hasProperty("KEYPASSWORD") ? KEYPASSWORD : ''
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+
+        debug {
+            try {
+            storeFile KEYSTORE
+            storePassword project.hasProperty("STOREPASSWORD") ? STOREPASSWORD : ''
+            keyAlias project.hasProperty("KEYALIAS") ? KEYALIAS : ''
+            keyPassword project.hasProperty("KEYPASSWORD") ? KEYPASSWORD : ''
+            } catch (ex) {
+                throw new InvalidUserDataException(ex.toString())
+            }
+        }
+    }
+
+    sourceSets {
+        main {
+            //java.srcDirs = ['src/main/java', 'src/main/java-gen']
+            //java.srcDirs = ['src/main/java']
+            //jniLibs.srcDirs = ['libs']
+            // manifest.srcFile 'AndroidManifest.xml'
+
+            java.srcDirs = ['src/main/java', 'src/main/aidl']
+            resources.srcDirs = ['src/main/java']
+            aidl.srcDirs = ['src/main/aidl']
+            renderscript.srcDirs = ['src/main/java']
+            assets.srcDirs = ['src/main/assets']
+            //配置so文件
+            jniLibs.srcDirs = ['libs']
+        }
+        // Move the tests to tests/java, tests/res, etc...
+        instrumentTest.setRoot('tests')
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+
+
+    buildTypes {
+        release {
+            buildConfigField("String", "BUGLY_ID", "\"${BUGLY.ID}\"")//动态定义buildConfig字段值
+            buildConfigField("String", "LOG_TAG", "\"${LOG.LOG_TAG}\"")//动态定义buildConfig字段值
+            minifyEnabled false
+            signingConfig signingConfigs.release
+            shrinkResources false
+            zipAlignEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            buildConfigField("String", "BUGLY_ID", "\"${BUGLY.ID}\"")
+            buildConfigField("String", "LOG_TAG", "\"${LOG.LOG_TAG}\"")//动态定义buildConfig字段值
+            debuggable true
+            minifyEnabled false
+            signingConfig signingConfigs.debug
+        }
+    }
+    compileOptions {
+        targetCompatibility 1.8
+        sourceCompatibility 1.8
+    }
+
+}
+
+//greendao文件配置
+greendao{
+    schemaVersion 5 //版本号 升级时候修改
+    daoPackage "${APP.applicationId}.db"//生成的包名称
+    targetGenDir 'src/main/java'//生成文件的目录
+}
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation "com.android.support:appcompat-v7:${JAR.supportVersion}"
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation project(':basemodule')
+    compile "android.arch.persistence.room:runtime:$JAR.roomVersion"
+    annotationProcessor "android.arch.persistence.room:compiler:$JAR.roomVersion"
+
+}
