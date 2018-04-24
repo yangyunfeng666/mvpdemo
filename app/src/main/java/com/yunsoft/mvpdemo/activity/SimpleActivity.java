@@ -1,5 +1,6 @@
 package com.yunsoft.mvpdemo.activity;
 
+import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -17,6 +18,8 @@ import com.yunsoft.mvpdemo.persistence.sqlite.dao.User;
 import java.util.Date;
 import java.util.List;
 
+import javax.inject.Inject;
+
 /**
  * Created by yyf on 2018-04-11 16:53.
  */
@@ -32,9 +35,12 @@ public class SimpleActivity extends BaseMvpActivity implements  SimpleUiInterfac
     private Button brid_btn;
     private Button jsbrid_btn;
     private Button cache_btn;
+    private Button dragger_btn;
     private TextView show_txt;
     private TextView text;
     private SimplePresenter presenter;
+    @Inject
+    Application mApplication;
     @Override
     protected void onCreateBefore() {
 
@@ -52,8 +58,11 @@ public class SimpleActivity extends BaseMvpActivity implements  SimpleUiInterfac
         glide_btn = findViewById(R.id.glide_btn);
         brid_btn = findViewById(R.id.brid_btn);
         jsbrid_btn = findViewById(R.id.jsbrid_btn);
+        dragger_btn = findViewById(R.id.dragger_btn);
         show_txt = findViewById(R.id.show_txt);
         text = findViewById(R.id.text);
+        //从注册组件
+        ((MyApplication)getApplication()).getAppComponent().inject(this);
         //presenter 对象声明
         presenter = new SimplePresenter(this);
         load_btn.setOnClickListener(new View.OnClickListener() {
@@ -154,6 +163,13 @@ public class SimpleActivity extends BaseMvpActivity implements  SimpleUiInterfac
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SimpleActivity.this,MvpCacheActivity.class);
+                startActivity(intent);
+            }
+        });
+        dragger_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,DraggerActivity.class);
                 startActivity(intent);
             }
         });

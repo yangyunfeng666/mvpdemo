@@ -1,73 +1,83 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    >
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/show_txt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        />
-
-    <Button
-        android:id="@+id/load_btn"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="加载数据"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/show_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <Button
+            android:id="@+id/load_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="加载数据" />
 
 
-    <Button
-        android:id="@+id/add_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="添加数据"/>
+        <Button
+            android:id="@+id/add_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="添加数据" />
 
-    <Button
-        android:id="@+id/look_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="查看数据"/>
+        <Button
+            android:id="@+id/look_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="查看数据" />
 
-    <Button
-        android:id="@+id/update_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="更新数据"/>
+        <Button
+            android:id="@+id/update_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="更新数据" />
 
-    <Button
-        android:id="@+id/select_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="条件查询"/>
-    <Button
-        android:id="@+id/glide_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="图片"/>
+        <Button
+            android:id="@+id/select_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="条件查询" />
 
-    <Button
-        android:id="@+id/brid_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="hyBrid"/>
+        <Button
+            android:id="@+id/glide_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="图片" />
 
-    <Button
-        android:id="@+id/jsbrid_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="jsbrid协议通信"/>
+        <Button
+            android:id="@+id/brid_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="hyBrid" />
 
-   <Button
-        android:id="@+id/cache_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="缓存读取数据"/>
+        <Button
+            android:id="@+id/jsbrid_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="jsbrid协议通信" />
 
-    <TextView
-        android:id="@+id/text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        />
-</LinearLayout>
+        <Button
+            android:id="@+id/cache_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="缓存读取数据" />
+
+        <Button
+            android:id="@+id/dragger_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="dagger例子" />
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+</ScrollView>

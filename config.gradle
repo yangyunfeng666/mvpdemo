@@ -30,7 +30,8 @@ ext {
             glide:"4.7.1",
             glideintegration:"4.7.1",
             guavaVersion:"18.0",
-            roomVersion:"1.0.0"
+            roomVersion:"1.0.0",
+          dagger:"2.0"
 
     ]
 

@@ -5,6 +5,9 @@ import android.app.Application;
 import com.kye.basemodule.log.KyeLogUtils;
 import com.yunsoft.mvpdemo.db.DaoMaster;
 import com.yunsoft.mvpdemo.db.DaoSession;
+import com.yunsoft.mvpdemo.dragger.AppComponent;
+import com.yunsoft.mvpdemo.dragger.AppModule;
+import com.yunsoft.mvpdemo.dragger.DaggerAppComponent;
 import com.yunsoft.mvpdemo.persistence.perf.SharePreHelper;
 import com.yunsoft.mvpdemo.persistence.sqlite.UpdateOpenHelper;
 
@@ -19,6 +22,8 @@ public class MyApplication extends Application {
 
     private DaoSession daoSession;
 
+    private AppComponent mAppComponent;
+
     @Override
     public void onCreate() {
         super.onCreate();
@@ -26,6 +31,8 @@ public class MyApplication extends Application {
         KyeLogUtils.init(this,BuildConfig.BUGLY_ID,BuildConfig.LOG_TAG);
         SharePreHelper.init(this);//shareperfence初始化
         setDataBase();
+        //component实例
+        mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
     }
 
     private void setDataBase(){
@@ -45,5 +52,9 @@ public class MyApplication extends Application {
 
     public static MyApplication getInstance(){
         return mInstance;
+    }
+
+    public AppComponent getAppComponent(){
+        return  mAppComponent;
     }
 }
