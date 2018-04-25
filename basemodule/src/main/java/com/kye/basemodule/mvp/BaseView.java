@@ -7,7 +7,7 @@ import android.app.Dialog;
  * 基础的关于数据请求的UI显示
  */
 
-public interface BaseUiInterface extends ILifecycleView {
+public interface BaseView extends ILifecycleView {
 
     /**
      * 网络出错

@@ -24,7 +24,7 @@ import javax.inject.Inject;
  * Created by yyf on 2018-04-11 16:53.
  */
 
-public class SimpleActivity extends BaseMvpActivity implements  SimpleUiInterface {
+public class SimpleActivity extends BaseMvpActivity implements SimpleView {
 
     private Button load_btn;
     private Button add_btn;
@@ -36,6 +36,7 @@ public class SimpleActivity extends BaseMvpActivity implements  SimpleUiInterfac
     private Button jsbrid_btn;
     private Button cache_btn;
     private Button dragger_btn;
+    private Button dragger_mvp_btn;
     private TextView show_txt;
     private TextView text;
     private SimplePresenter presenter;
@@ -59,6 +60,7 @@ public class SimpleActivity extends BaseMvpActivity implements  SimpleUiInterfac
         brid_btn = findViewById(R.id.brid_btn);
         jsbrid_btn = findViewById(R.id.jsbrid_btn);
         dragger_btn = findViewById(R.id.dragger_btn);
+        dragger_mvp_btn = findViewById(R.id.dragger_mvp_btn);
         show_txt = findViewById(R.id.show_txt);
         text = findViewById(R.id.text);
         //从注册组件
@@ -169,7 +171,14 @@ public class SimpleActivity extends BaseMvpActivity implements  SimpleUiInterfac
         dragger_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SimpleActivity.this,DraggerActivity.class);
+                Intent intent = new Intent(SimpleActivity.this,DaggerActivity.class);
+                startActivity(intent);
+            }
+        });
+        dragger_mvp_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,DaggerAndMvpActivity.class);
                 startActivity(intent);
             }
         });

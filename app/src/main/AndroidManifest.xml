@@ -24,7 +24,8 @@
         <activity android:name=".activity.HyBridActivity"></activity>
         <activity android:name=".activity.JsBridActivity"></activity>
         <activity android:name=".activity.MvpCacheActivity"></activity>
-        <activity android:name=".activity.DraggerActivity"></activity>
+        <activity android:name=".activity.DaggerActivity"></activity>
+        <activity android:name=".activity.DaggerAndMvpActivity"></activity>
     </application>
 
 </manifest>

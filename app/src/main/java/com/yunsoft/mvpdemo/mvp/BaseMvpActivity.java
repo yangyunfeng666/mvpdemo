@@ -4,7 +4,7 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.widget.Toast;
 
-import com.kye.basemodule.mvp.BaseUiInterface;
+import com.kye.basemodule.mvp.BaseView;
 import com.kye.basemodule.view.CustomToast;
 import com.yunsoft.mvpdemo.R;
 
@@ -13,7 +13,7 @@ import com.yunsoft.mvpdemo.R;
  * 基础模板代码，可以根据自己的项目自由添加
  */
 
-public abstract class BaseMvpActivity extends BaseRxAppCompatActivity implements BaseUiInterface {
+public abstract class BaseMvpActivity extends BaseRxAppCompatActivity implements BaseView {
 
 
     @Override

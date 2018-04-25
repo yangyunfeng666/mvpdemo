@@ -1,6 +1,6 @@
 package com.yunsoft.mvpdemo.activity;
 
-import com.kye.basemodule.mvp.BaseUiInterface;
+import com.kye.basemodule.mvp.BaseView;
 import com.yunsoft.mvpdemo.data.LocalUserInfo;
 
 /**
@@ -12,7 +12,7 @@ import com.yunsoft.mvpdemo.data.LocalUserInfo;
 
 public interface MvpCacheContract {
 
-    interface View extends BaseUiInterface{
+    interface View extends BaseView {
         void loadDataSucess(LocalUserInfo userInfo);
     }
 

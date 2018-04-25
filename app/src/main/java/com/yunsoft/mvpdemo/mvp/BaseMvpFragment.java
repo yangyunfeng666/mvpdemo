@@ -9,7 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
-import com.kye.basemodule.mvp.BaseUiInterface;
+import com.kye.basemodule.mvp.BaseView;
 import com.kye.basemodule.view.CustomToast;
 import com.yunsoft.mvpdemo.R;
 
@@ -17,7 +17,7 @@ import com.yunsoft.mvpdemo.R;
  * Created by yyf on 2018-04-17 11:31.
  */
 
-public abstract class BaseMvpFragment extends BaseRxFragment implements BaseUiInterface {
+public abstract class BaseMvpFragment extends BaseRxFragment implements BaseView {
 
 
     @Nullable

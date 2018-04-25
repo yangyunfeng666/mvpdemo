@@ -6,8 +6,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.yunsoft.mvpdemo.R;
-import com.yunsoft.mvpdemo.dragger.CarModule;
-import com.yunsoft.mvpdemo.dragger.Engine;
+import com.yunsoft.mvpdemo.dagger.CarModule;
+import com.yunsoft.mvpdemo.dagger.Engine;
 import com.yunsoft.mvpdemo.mvp.BaseMvpActivity;
 
 import javax.inject.Inject;
@@ -22,7 +22,7 @@ import dagger.Component;
  */
 
 
-public class DraggerActivity extends BaseMvpActivity {
+public class DaggerActivity extends BaseMvpActivity {
 
     private TextView textView;
     private Button button;
@@ -43,7 +43,7 @@ public class DraggerActivity extends BaseMvpActivity {
         setContentView(R.layout.activity_dragger);
         textView = findViewById(R.id.text);
         button = findViewById(R.id.button);
-        DaggerDraggerActivity_ActivityCommpont.builder().carModule(new CarModule("AAAA","BBBB")).build().inject(this);
+        DaggerDaggerActivity_ActivityCommpont.builder().carModule(new CarModule("AAAA","BBBB")).build().inject(this);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -58,6 +58,6 @@ public class DraggerActivity extends BaseMvpActivity {
     }
     @Component(modules = {CarModule.class})
     public interface ActivityCommpont{
-        void inject(DraggerActivity draggerActivity);
+        void inject(DaggerActivity draggerActivity);
     }
 }

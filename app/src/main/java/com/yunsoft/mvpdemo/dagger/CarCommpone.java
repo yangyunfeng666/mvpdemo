@@ -1,4 +1,4 @@
-package com.yunsoft.mvpdemo.dragger;
+package com.yunsoft.mvpdemo.dagger;
 
 import dagger.Component;
 

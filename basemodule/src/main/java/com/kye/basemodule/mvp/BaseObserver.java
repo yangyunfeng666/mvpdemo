@@ -25,11 +25,11 @@ import io.reactivex.disposables.Disposable;
 public abstract class BaseObserver<E extends BaseResponse> implements Observer<E> {
 
 
-    private BaseUiInterface mBaseUiInterface;
+    private BaseView mBaseUiInterface;
 
     private Disposable disposable;
 
-    public BaseObserver(BaseUiInterface mBaseUiInterface) {
+    public BaseObserver(BaseView mBaseUiInterface) {
         this.mBaseUiInterface = mBaseUiInterface;
     }
 

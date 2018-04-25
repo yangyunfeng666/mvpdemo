@@ -2,7 +2,7 @@ package com.yunsoft.mvpdemo.data.source.remote;
 
 import com.kye.basemodule.mvp.BaseObserver;
 import com.kye.basemodule.mvp.BasePresenter;
-import com.kye.basemodule.mvp.BaseUiInterface;
+import com.kye.basemodule.mvp.BaseView;
 import com.kye.basemodule.network.base.BaseResponse;
 import com.yunsoft.mvpdemo.data.LocalUserInfo;
 import com.yunsoft.mvpdemo.data.source.UsersDataSource;
@@ -19,10 +19,10 @@ import io.reactivex.schedulers.Schedulers;
  */
 
 
-public class UserRemoteDataSource extends BasePresenter<BaseUiInterface> implements UsersDataSource {
+public class UserRemoteDataSource extends BasePresenter<BaseView> implements UsersDataSource {
 
 
- public UserRemoteDataSource(BaseUiInterface mUiInterface) {
+ public UserRemoteDataSource(BaseView mUiInterface) {
   super(mUiInterface);
  }
 
