@@ -1,8 +1,8 @@
 package com.yunsoft.mvpdemo.activity;
 
-import android.app.Application;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,15 +10,20 @@ import android.widget.TextView;
 import com.kye.basemodule.log.KyeLogUtils;
 import com.yunsoft.mvpdemo.MyApplication;
 import com.yunsoft.mvpdemo.R;
+import com.yunsoft.mvpdemo.dagger.DaggerNetCommponent;
+import com.yunsoft.mvpdemo.dagger.NetModule;
+import com.yunsoft.mvpdemo.data.LocalUserInfo;
 import com.yunsoft.mvpdemo.db.UserDao;
 import com.yunsoft.mvpdemo.mvp.BaseMvpActivity;
-import com.yunsoft.mvpdemo.data.LocalUserInfo;
 import com.yunsoft.mvpdemo.persistence.sqlite.dao.User;
 
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
+import javax.inject.Named;
+
+import okhttp3.OkHttpClient;
 
 /**
  * Created by yyf on 2018-04-11 16:53.
@@ -40,13 +45,12 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private TextView show_txt;
     private TextView text;
     private SimplePresenter presenter;
+    @Named("cache") //如果在module中有其他注解比如 Qualiter Name 则以前声明，否则报错
     @Inject
-    Application mApplication;
+    OkHttpClient okHttpClient;
     @Override
     protected void onCreateBefore() {
-
     }
-
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_simple);
@@ -63,15 +67,16 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         dragger_mvp_btn = findViewById(R.id.dragger_mvp_btn);
         show_txt = findViewById(R.id.show_txt);
         text = findViewById(R.id.text);
-        //从注册组件
-        ((MyApplication)getApplication()).getAppComponent().inject(this);
-        //presenter 对象声明
+        DaggerNetCommponent.builder().appComponent(((MyApplication)getApplication()).getAppComponent())
+                .netModule(new NetModule(com.yunsoft.mvpdemo.http.HttpUrl.BASEURL)).build().inject(this);
+//        //presenter 对象声明
         presenter = new SimplePresenter(this);
         load_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //调用presenter 方法调用数据
                 presenter.phoneLogin("13265797978","ab244795339868d6e9d35ed7e7de7e3b","104.22","12.2","31231213233");
+               Log.e("OkHttpClient",okHttpClient.toString());
             }
         });
 
@@ -201,5 +206,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     protected void initData() {
 
     }
+
+
 
 }

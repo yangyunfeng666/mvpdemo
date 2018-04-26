@@ -3,11 +3,11 @@ package com.yunsoft.mvpdemo;
 import android.app.Application;
 
 import com.kye.basemodule.log.KyeLogUtils;
+import com.yunsoft.mvpdemo.dagger.DaggerAppComponent;
 import com.yunsoft.mvpdemo.db.DaoMaster;
 import com.yunsoft.mvpdemo.db.DaoSession;
 import com.yunsoft.mvpdemo.dagger.AppComponent;
 import com.yunsoft.mvpdemo.dagger.AppModule;
-import com.yunsoft.mvpdemo.dagger.DaggerAppComponent;
 import com.yunsoft.mvpdemo.persistence.perf.SharePreHelper;
 import com.yunsoft.mvpdemo.persistence.sqlite.UpdateOpenHelper;
 

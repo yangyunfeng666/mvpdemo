@@ -2,9 +2,11 @@ package com.yunsoft.mvpdemo.dagger;
 
 import android.app.Application;
 import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.kye.basemodule.network.RetrofitSource;
+import com.yunsoft.mvpdemo.MyApplication;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,39 +29,28 @@ import okhttp3.logging.HttpLoggingInterceptor;
 @Module
 public class AppModule {
 
-    private Application mApplication;
+    private MyApplication mApplication;
 
-    public AppModule(Application mApplication) {
+    public AppModule(MyApplication mApplication) {
         this.mApplication = mApplication;
     }
 
-    @Provides
     @Singleton
+    @Provides
     Application ProvideApplication() {
         return mApplication;
     }
 
     @Singleton
     @Provides
-    Gson provideGson() {
-        return new Gson();
+    Context ProvideContext() {
+        return mApplication;
     }
 
-    @Named("no_cached")
+    @Singleton
     @Provides
-    OkHttpClient ProvideOkHttpClient() {
-        HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
-        loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
-        Interceptor apikey = chain -> chain.proceed(chain.request().newBuilder()
-                .addHeader("apikey", "aaa").build());
-
-        OkHttpClient okHttpClient = new OkHttpClient.Builder()
-                .readTimeout(30, TimeUnit.MILLISECONDS)
-                .connectTimeout(30, TimeUnit.MILLISECONDS)
-                .addInterceptor(apikey)
-                .addInterceptor(loggingInterceptor)
-                .build();
-        return okHttpClient;
+    SharedPreferences ProvideSharedPreferences() {
+        return mApplication.getSharedPreferences("shareperf",Context.MODE_PRIVATE);
     }
 
 

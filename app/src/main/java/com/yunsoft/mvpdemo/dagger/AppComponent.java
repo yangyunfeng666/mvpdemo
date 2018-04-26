@@ -1,6 +1,9 @@
 package com.yunsoft.mvpdemo.dagger;
 
 import android.app.Activity;
+import android.app.Application;
+import android.content.Context;
+import android.content.SharedPreferences;
 
 import com.yunsoft.mvpdemo.dagger.AppModule;
 
@@ -16,6 +19,6 @@ import dagger.Component;
 @Singleton
 @Component(modules = {AppModule.class})
 public interface AppComponent {
-    void  inject(Activity activity);
-
+    Application Application();//声明对子组件可见
+    SharedPreferences SharedPreferences();//声明对子组件可见
 }

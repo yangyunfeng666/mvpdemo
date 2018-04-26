@@ -1,6 +1,7 @@
 package com.yunsoft.mvpdemo.http.retrofit;
 
 import com.kye.basemodule.network.RetrofitImpl;
+import com.yunsoft.mvpdemo.dagger.NetModule;
 import com.yunsoft.mvpdemo.http.retrofit.interceptor.ReceivedCookiesInterceptor;
 
 import java.security.KeyManagementException;
@@ -9,6 +10,7 @@ import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Inject;
 import javax.net.ssl.HostnameVerifier;
 import javax.net.ssl.SSLContext;
 import javax.net.ssl.SSLSession;
@@ -39,6 +41,10 @@ public class RetrofitNetSource extends RetrofitImpl {
         this.HOST_ADDRESS = HOST_ADDRESS;
     }
 
+
+//    @Inject
+//    OkHttpClient mOkHttpClient;
+
     @Override
     public String callHostAddress() {
         return this.HOST_ADDRESS;
@@ -51,7 +57,7 @@ public class RetrofitNetSource extends RetrofitImpl {
     }
 
     private Call.Factory getClient(Interceptor ...args) {
-        OkHttpClient okHttpClient = RetrofitNetSource.normal();
+        OkHttpClient okHttpClient = normal();
         OkHttpClient.Builder clientBuilder = okHttpClient.newBuilder();
 
         SSLContext sslctxt = null;
