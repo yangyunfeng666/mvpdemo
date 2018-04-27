@@ -26,6 +26,8 @@
         <activity android:name=".activity.MvpCacheActivity"></activity>
         <activity android:name=".activity.DaggerActivity"></activity>
         <activity android:name=".activity.DaggerAndMvpActivity"></activity>
+        <activity android:name=".activity.DaggerSubComponentActivity"></activity>
+        <activity android:name=".activity.DaggerDependenciesComponentActivity"></activity>
     </application>
 
 </manifest>

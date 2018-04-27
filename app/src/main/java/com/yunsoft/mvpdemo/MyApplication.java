@@ -3,6 +3,8 @@ package com.yunsoft.mvpdemo;
 import android.app.Application;
 
 import com.kye.basemodule.log.KyeLogUtils;
+import com.yunsoft.mvpdemo.dagger.ActivityComponent;
+import com.yunsoft.mvpdemo.dagger.DaggerActivityComponent;
 import com.yunsoft.mvpdemo.dagger.DaggerAppComponent;
 import com.yunsoft.mvpdemo.db.DaoMaster;
 import com.yunsoft.mvpdemo.db.DaoSession;
@@ -23,6 +25,7 @@ public class MyApplication extends Application {
     private DaoSession daoSession;
 
     private AppComponent mAppComponent;
+    private ActivityComponent mActivityComponent;
 
     @Override
     public void onCreate() {
@@ -33,6 +36,7 @@ public class MyApplication extends Application {
         setDataBase();
         //component实例
         mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
+        mActivityComponent =DaggerActivityComponent.builder().appModule(new AppModule(this)).build();
     }
 
     private void setDataBase(){
@@ -56,5 +60,9 @@ public class MyApplication extends Application {
 
     public AppComponent getAppComponent(){
         return  mAppComponent;
+    }
+
+    public ActivityComponent getActivityComponent(){
+        return  mActivityComponent;
     }
 }

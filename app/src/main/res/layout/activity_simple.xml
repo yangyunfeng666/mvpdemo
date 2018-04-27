@@ -81,10 +81,23 @@
             android:layout_height="wrap_content"
             android:text="dagger与mvp结合例子" />
 
+        <Button
+            android:id="@+id/dragger_dependencise_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="dagger component dependencise " />
+
+    <Button
+            android:id="@+id/dragger_subcomponent_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="dagger component subcomponent " />
+
         <TextView
             android:id="@+id/text"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
+
     </LinearLayout>
 
 </ScrollView>

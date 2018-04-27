@@ -42,12 +42,11 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button cache_btn;
     private Button dragger_btn;
     private Button dragger_mvp_btn;
+    private Button dragger_dependencise_btn;//component依赖
+    private Button dragger_subcomponent_btn;//subcomponent
     private TextView show_txt;
     private TextView text;
     private SimplePresenter presenter;
-    @Named("cache") //如果在module中有其他注解比如 Qualiter Name 则以前声明，否则报错
-    @Inject
-    OkHttpClient okHttpClient;
     @Override
     protected void onCreateBefore() {
     }
@@ -65,18 +64,17 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         jsbrid_btn = findViewById(R.id.jsbrid_btn);
         dragger_btn = findViewById(R.id.dragger_btn);
         dragger_mvp_btn = findViewById(R.id.dragger_mvp_btn);
+        dragger_dependencise_btn = findViewById(R.id.dragger_dependencise_btn);
+        dragger_subcomponent_btn = findViewById(R.id.dragger_subcomponent_btn);
         show_txt = findViewById(R.id.show_txt);
         text = findViewById(R.id.text);
-        DaggerNetCommponent.builder().appComponent(((MyApplication)getApplication()).getAppComponent())
-                .netModule(new NetModule(com.yunsoft.mvpdemo.http.HttpUrl.BASEURL)).build().inject(this);
-//        //presenter 对象声明
+       //presenter 对象声明
         presenter = new SimplePresenter(this);
         load_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //调用presenter 方法调用数据
                 presenter.phoneLogin("13265797978","ab244795339868d6e9d35ed7e7de7e3b","104.22","12.2","31231213233");
-               Log.e("OkHttpClient",okHttpClient.toString());
             }
         });
 
@@ -184,6 +182,20 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SimpleActivity.this,DaggerAndMvpActivity.class);
+                startActivity(intent);
+            }
+        });
+        dragger_dependencise_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,DaggerDependenciesComponentActivity.class);
+                startActivity(intent);
+            }
+        });
+        dragger_subcomponent_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,DaggerSubComponentActivity.class);
                 startActivity(intent);
             }
         });
