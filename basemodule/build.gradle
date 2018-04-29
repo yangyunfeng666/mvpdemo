@@ -65,6 +65,7 @@ dependencies {
     annotationProcessor "com.github.bumptech.glide:compiler:$JAR.glide"
     compile "com.github.bumptech.glide:okhttp3-integration:$JAR.glideintegration"
 
+
     compile "com.google.guava:guava:$JAR.guavaVersion"
 
 }

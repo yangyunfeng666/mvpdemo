@@ -26,7 +26,7 @@ public class CarModule {
 
     @QualifierA
     @Provides
-    Engine ProvideEngineA(){
+    Engine  ProvideEngineA(){
         return  new Engine(vales);
     }
 

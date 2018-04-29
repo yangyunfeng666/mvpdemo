@@ -2,7 +2,6 @@ package com.yunsoft.mvpdemo.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,8 +9,6 @@ import android.widget.TextView;
 import com.kye.basemodule.log.KyeLogUtils;
 import com.yunsoft.mvpdemo.MyApplication;
 import com.yunsoft.mvpdemo.R;
-import com.yunsoft.mvpdemo.dagger.DaggerNetCommponent;
-import com.yunsoft.mvpdemo.dagger.NetModule;
 import com.yunsoft.mvpdemo.data.LocalUserInfo;
 import com.yunsoft.mvpdemo.db.UserDao;
 import com.yunsoft.mvpdemo.mvp.BaseMvpActivity;
@@ -19,11 +16,6 @@ import com.yunsoft.mvpdemo.persistence.sqlite.dao.User;
 
 import java.util.Date;
 import java.util.List;
-
-import javax.inject.Inject;
-import javax.inject.Named;
-
-import okhttp3.OkHttpClient;
 
 /**
  * Created by yyf on 2018-04-11 16:53.
@@ -44,6 +36,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button dragger_mvp_btn;
     private Button dragger_dependencise_btn;//component依赖
     private Button dragger_subcomponent_btn;//subcomponent
+    private Button dragger_inject_btn;// inject 统一注入
     private TextView show_txt;
     private TextView text;
     private SimplePresenter presenter;
@@ -66,6 +59,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         dragger_mvp_btn = findViewById(R.id.dragger_mvp_btn);
         dragger_dependencise_btn = findViewById(R.id.dragger_dependencise_btn);
         dragger_subcomponent_btn = findViewById(R.id.dragger_subcomponent_btn);
+        dragger_inject_btn = findViewById(R.id.dragger_inject_btn);
         show_txt = findViewById(R.id.show_txt);
         text = findViewById(R.id.text);
        //presenter 对象声明
@@ -196,6 +190,13 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SimpleActivity.this,DaggerSubComponentActivity.class);
+                startActivity(intent);
+            }
+        });
+        dragger_inject_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,DaggerInjectorActivity.class);
                 startActivity(intent);
             }
         });

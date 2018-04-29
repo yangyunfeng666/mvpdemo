@@ -38,7 +38,7 @@ public class DaggerSubComponentActivity extends BaseMvpActivity {
     setContentView(R.layout.activity_dagger_sub_activity);
         textView = findViewById(R.id.text);
         button = findViewById(R.id.button);
-        ((MyApplication)getApplication()).getActivityComponent().addSub(new NetModule(com.yunsoft.mvpdemo.http.HttpUrl.BASEURL)).inject(this);
+        ((MyApplication)getApplication()).getActivityComponent().ActivitySubComponent(new NetModule(com.yunsoft.mvpdemo.http.HttpUrl.BASEURL)).inject(this);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

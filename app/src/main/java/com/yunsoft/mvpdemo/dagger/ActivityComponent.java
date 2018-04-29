@@ -14,5 +14,5 @@ import dagger.Component;
 public interface ActivityComponent {
     //xxxxSubComponent addSub xxxxMoudle 这是把subComponent添加到里面去
     //添加子subcomponent 的一个方法  这个2个compoent就内聚了
-    ActivitySubComponent addSub(NetModule appModule);
+    ActivitySubComponent ActivitySubComponent(NetModule netModule);
 }

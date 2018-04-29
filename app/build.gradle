@@ -130,6 +130,13 @@ dependencies {
     compile "android.arch.persistence.room:runtime:$JAR.roomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$JAR.roomVersion"
 
-    compile "com.google.dagger:dagger:$JAR.dagger"
+    // Dagger dependencies
     annotationProcessor "com.google.dagger:dagger-compiler:$JAR.dagger"
+    provided 'org.glassfish:javax.annotation:10.0-b28'
+    compile "com.google.dagger:dagger:$JAR.dagger"
+    compile "com.google.dagger:dagger-android:$JAR.dagger"
+    compile "com.google.dagger:dagger-android-support:$JAR.dagger"
+    annotationProcessor "com.google.dagger:dagger-android-processor:$JAR.dagger"
+
+
 }
