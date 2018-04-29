@@ -37,6 +37,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button dragger_dependencise_btn;//component依赖
     private Button dragger_subcomponent_btn;//subcomponent
     private Button dragger_inject_btn;// inject 统一注入
+    private Button dragger_base_inject_btn;// 在baseAllModule里面注入
     private TextView show_txt;
     private TextView text;
     private SimplePresenter presenter;
@@ -59,6 +60,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         dragger_mvp_btn = findViewById(R.id.dragger_mvp_btn);
         dragger_dependencise_btn = findViewById(R.id.dragger_dependencise_btn);
         dragger_subcomponent_btn = findViewById(R.id.dragger_subcomponent_btn);
+        dragger_base_inject_btn = findViewById(R.id.dragger_base_inject_btn);
         dragger_inject_btn = findViewById(R.id.dragger_inject_btn);
         show_txt = findViewById(R.id.show_txt);
         text = findViewById(R.id.text);
@@ -197,6 +199,13 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SimpleActivity.this,DaggerInjectorActivity.class);
+                startActivity(intent);
+            }
+        });
+        dragger_base_inject_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,AllActivityInjectorActivity.class);
                 startActivity(intent);
             }
         });

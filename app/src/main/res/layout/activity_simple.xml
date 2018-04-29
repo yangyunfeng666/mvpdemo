@@ -97,6 +97,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="dagger  application inject " />
+    <Button
+            android:id="@+id/dragger_base_inject_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="dagger  base  inject " />
 
         <TextView
             android:id="@+id/text"

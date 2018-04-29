@@ -7,6 +7,7 @@ import com.kye.basemodule.log.KyeLogUtils;
 import com.yunsoft.mvpdemo.dagger.ActivityComponent;
 import com.yunsoft.mvpdemo.dagger.DaggerActivityComponent;
 import com.yunsoft.mvpdemo.dagger.DaggerAppComponent;
+import com.yunsoft.mvpdemo.dagger.DaggerMyAppCommponent;
 import com.yunsoft.mvpdemo.db.DaoMaster;
 import com.yunsoft.mvpdemo.db.DaoSession;
 import com.yunsoft.mvpdemo.dagger.AppComponent;
@@ -27,7 +28,7 @@ import dagger.android.support.DaggerApplication;
  * Created by yyf on 2018-04-11 15:37.
  */
 
-public class MyApplication extends Application  {
+public class MyApplication extends Application implements HasActivityInjector {
 
     private static MyApplication mInstance;
 
@@ -36,6 +37,8 @@ public class MyApplication extends Application  {
     private AppComponent mAppComponent;
     private ActivityComponent mActivityComponent;
 
+    //注入 DispatchingAndroidInjector 在 DaggerMyAppCommponent什么时候填入
+    //管理XXXXActivityProvider
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
 
@@ -49,6 +52,7 @@ public class MyApplication extends Application  {
         //component实例
         mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
         mActivityComponent =DaggerActivityComponent.builder().appModule(new AppModule(this)).build();
+        DaggerMyAppCommponent.builder().build().inject(this);
     }
 
 
@@ -79,6 +83,8 @@ public class MyApplication extends Application  {
         return  mActivityComponent;
     }
 
-
-
+    @Override
+    public AndroidInjector<Activity> activityInjector() {
+        return dispatchingActivityInjector;
+    }
 }

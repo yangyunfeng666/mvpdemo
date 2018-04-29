@@ -2,43 +2,38 @@ package com.yunsoft.mvpdemo.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.yunsoft.mvpdemo.R;
-import com.yunsoft.mvpdemo.dagger.Car;
-import com.yunsoft.mvpdemo.dagger.CarModule;
-import com.yunsoft.mvpdemo.dagger.Engine;
 import com.yunsoft.mvpdemo.data.LocalUserInfo;
 import com.yunsoft.mvpdemo.mvp.BaseMvpActivity;
 
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjection;
-import dagger.android.AndroidInjector;
-import dagger.releasablereferences.ForReleasableReferences;
-import dagger.releasablereferences.ReleasableReferenceManager;
 
 /**
  * Author: yangyunfeng
  * Date: 公元2018-4-27 17:14
  * Description:this is DaggerInjectorActivity
+ * 这个是测试最基本的通过最新的ContributesAndroidInjector 注入
  */
 
 
-public class DaggerInjectorActivity extends BaseMvpActivity implements DaggerMvpContract.View {
+public class AllActivityInjectorActivity extends BaseMvpActivity implements DaggerMvpContract.View {
 
     private TextView textView;
     private Button button;
 
+    //这个注入从AllActivityInjectorModule提供的
     @Inject
     SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreateBefore() {
-//     AndroidInjection.inject(this);//
+//        AndroidInjection.inject(this);//明确写入注入
     }
 
     @Override

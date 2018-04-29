@@ -1,12 +1,18 @@
 package com.yunsoft.mvpdemo.mvp;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.os.Bundle;
 import android.widget.Toast;
 
 import com.kye.basemodule.mvp.BaseView;
 import com.kye.basemodule.view.CustomToast;
+import com.yunsoft.mvpdemo.MyApplication;
 import com.yunsoft.mvpdemo.R;
+
+import dagger.android.AndroidInjection;
+import dagger.android.AndroidInjector;
+import dagger.android.DispatchingAndroidInjector;
 
 /**
  * Created by yyf on 2018-04-11 16:02.
@@ -19,6 +25,11 @@ public abstract class BaseMvpActivity extends BaseRxAppCompatActivity implements
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         onCreateBefore();
+        //判断在DispatchingAndroidInjector 里面是否有改Activity的注入，如果有，则注入改Activity
+        if(((DispatchingAndroidInjector<Activity>)((MyApplication)getApplication()).activityInjector()).maybeInject(this))
+        {
+            AndroidInjection.inject(this);
+        }
         super.onCreate(savedInstanceState);
         initViews(savedInstanceState);
         initData();
