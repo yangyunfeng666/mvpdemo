@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="200dp"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="false">
 
     <RelativeLayout
@@ -16,7 +16,7 @@
         <com.kye.basemodule.glide.view.GlideImageView
             android:id="@+id/glideImageView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="200dp"
             app:riv_border_color="@color/orange"
             app:riv_border_width="2dp"
             app:riv_corner_radius="10dp"
@@ -80,4 +80,15 @@
         app:cpv_progressStyle="Normal"
         app:cpv_progressTextColor="@color/transparent90_white"
         app:cpv_progressTextSize="13sp"/>
+
+
+    <com.kye.basemodule.view.CircleImageView
+        android:id="@+id/circleImage"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        app:border_width="2dp"
+        app:border_color="@color/colorPrimaryDark"
+        android:src="@mipmap/ic_launcher"
+        />
+
 </RelativeLayout>

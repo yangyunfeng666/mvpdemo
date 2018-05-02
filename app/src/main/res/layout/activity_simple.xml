@@ -102,6 +102,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="dagger  base  inject " />
+   <Button
+            android:id="@+id/my_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="my view " />
 
         <TextView
             android:id="@+id/text"

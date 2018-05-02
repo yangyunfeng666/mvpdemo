@@ -17,7 +17,7 @@ public class GlideUtils {
      * @param url 请求url
      * @param imageView 图片控件
      */
-    public void load(Uri url, ImageView imageView) {
+    public static void load(Uri url, ImageView imageView) {
         GlideApp.with(imageView.getContext()).load(url).into(imageView);
     }
 
@@ -26,7 +26,7 @@ public class GlideUtils {
      * @param url 请求url
      * @param imageView 图片控件
      */
-    public void load(String url, ImageView imageView) {
+    public static void load(String url, ImageView imageView) {
         GlideApp.with(imageView.getContext()).load(url).into(imageView);
     }
     /**
@@ -35,7 +35,7 @@ public class GlideUtils {
      * @param requestOptions 参数配置
      * @param imageView 图片控件
      */
-    public void load(String url, RequestOptions requestOptions, ImageView imageView) {
+    public static void load(String url, RequestOptions requestOptions, ImageView imageView) {
         GlideApp.with(imageView.getContext()).load(url).apply(requestOptions).into(imageView);
     }
 
@@ -45,7 +45,7 @@ public class GlideUtils {
      * @param requestOptions 参数配置
      * @param imageView 图片控件
      */
-    public void load(Uri url, RequestOptions requestOptions, ImageView imageView) {
+    public static void load(Uri url, RequestOptions requestOptions, ImageView imageView) {
         GlideApp.with(imageView.getContext()).load(url).apply(requestOptions).into(imageView);
     }
 

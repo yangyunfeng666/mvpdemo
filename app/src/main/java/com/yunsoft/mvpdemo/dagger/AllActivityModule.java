@@ -15,6 +15,7 @@ import dagger.android.ContributesAndroidInjector;
 @Module(subcomponents = {BaseActivityComponent.class})
 public abstract class AllActivityModule {
     //定义一个AllActivityInjectorActivity 的module 和AllActivityInjectorActivity 注入
+    @ActivityScope
     @ContributesAndroidInjector(modules = AllActivityInjectorModule.class)
     abstract AllActivityInjectorActivity AllActivityInjectorActivity();
 }

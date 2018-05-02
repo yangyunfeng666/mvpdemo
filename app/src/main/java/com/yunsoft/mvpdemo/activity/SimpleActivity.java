@@ -38,6 +38,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button dragger_subcomponent_btn;//subcomponent
     private Button dragger_inject_btn;// inject 统一注入
     private Button dragger_base_inject_btn;// 在baseAllModule里面注入
+    private Button my_view;// 自定义view 例子
     private TextView show_txt;
     private TextView text;
     private SimplePresenter presenter;
@@ -58,6 +59,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         jsbrid_btn = findViewById(R.id.jsbrid_btn);
         dragger_btn = findViewById(R.id.dragger_btn);
         dragger_mvp_btn = findViewById(R.id.dragger_mvp_btn);
+        my_view = findViewById(R.id.my_view);
         dragger_dependencise_btn = findViewById(R.id.dragger_dependencise_btn);
         dragger_subcomponent_btn = findViewById(R.id.dragger_subcomponent_btn);
         dragger_base_inject_btn = findViewById(R.id.dragger_base_inject_btn);
@@ -209,6 +211,13 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
                 startActivity(intent);
             }
         });
+        my_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,MyViewActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     //view 更新
@@ -220,8 +229,6 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        //取消请求任务
-        presenter.unSubscribeTasks();
     }
 
     @Override

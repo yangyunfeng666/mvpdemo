@@ -22,7 +22,7 @@ public class BasePresenter<T extends ILifecycleView>  {
 
     public BasePresenter(T mUiInterface) {
         this.mUiInterface = mUiInterface;
-        if(mUiInterface!=null) {
+        if(mUiInterface!=null) {//这里是Activity生命周期结束时候，清楚所以未完成的订阅
             Observable.never()
                     .compose(mUiInterface.bindToLifecycleDestroy())
                     .doOnTerminate(new Action() {

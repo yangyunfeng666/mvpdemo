@@ -38,7 +38,7 @@ android {
         release {
             try {
                 storeFile KEYSTORE
-                storePassword project.hasProperty("STOREPASSWORD") ? STOREPASSWORD : ''
+                storePassword project.hasProperty("STOREPASSWORD") ? STOREPASSWORD : ''//在gradle.properties 配置密码和key
                 keyAlias project.hasProperty("KEYALIAS") ? KEYALIAS : ''
                 keyPassword project.hasProperty("KEYPASSWORD") ? KEYPASSWORD : ''
             } catch (ex) {

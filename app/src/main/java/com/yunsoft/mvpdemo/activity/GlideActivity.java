@@ -5,11 +5,13 @@ import android.os.Bundle;
 
 import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.request.RequestOptions;
+import com.kye.basemodule.glide.GlideUtils;
 import com.kye.basemodule.glide.view.CircleProgressView;
 import com.kye.basemodule.glide.GlideApp;
 import com.kye.basemodule.glide.view.GlideImageView;
 import com.kye.basemodule.glide.transformation.GlideCircleTransformation;
 import com.kye.basemodule.shareperfence.Preference;
+import com.kye.basemodule.view.CircleImageView;
 import com.yunsoft.mvpdemo.R;
 
 /**
@@ -24,6 +26,7 @@ public class GlideActivity extends Activity {
 
     GlideImageView glideImageView ;
     CircleProgressView circleProgressView ;
+    CircleImageView circleImage;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,7 +60,8 @@ public class GlideActivity extends Activity {
 //            }
 //        });
 
-
+        circleImage = findViewById(R.id.circleImage);
+        GlideUtils.load(girl,circleImage);
     }
 
     @Override

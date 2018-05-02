@@ -5,6 +5,7 @@ import android.content.SharedPreferences;
 
 import com.yunsoft.mvpdemo.pojo.Student;
 
+import dagger.BindsInstance;
 import dagger.Component;
 import dagger.Module;
 import dagger.Provides;
@@ -20,11 +21,13 @@ import dagger.android.AndroidInjector;
 
 @Subcomponent(modules = {AndroidInjectionModule.class,
         DaggerInjectActivitySubComponent.SubModule.class})
-public interface DaggerInjectActivitySubComponent extends AndroidInjector<DaggerInjectorActivity> {
+public interface DaggerInjectActivitySubComponent extends AndroidInjector<DaggerInjectorActivity> { //定义builder 针对具体的注入对象
     @Subcomponent.Builder
-    abstract class Builder extends AndroidInjector.Builder<DaggerInjectorActivity>{}
+    abstract class Builder extends AndroidInjector.Builder<DaggerInjectorActivity>{
+
+    }
     @Module
-    class SubModule{
+    class SubModule{ //定义组件的module
         @Provides
         SharedPreferences sharedPreferences( DaggerInjectorActivity activity ){
            return  activity.getSharedPreferences("share",Context.MODE_PRIVATE);

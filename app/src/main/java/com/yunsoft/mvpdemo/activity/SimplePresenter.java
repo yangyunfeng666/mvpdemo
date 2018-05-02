@@ -38,7 +38,6 @@ public class SimplePresenter extends BasePresenter<SimpleView> implements  Simpl
                  public void onSubscribe(Disposable d) {
                      addSubscrietion(d);//添加到统一管理的容器中，当生命周期结束时候统一断开订阅
                  }
-
              });
 
     }

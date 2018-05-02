@@ -30,6 +30,7 @@
         <activity android:name=".activity.DaggerDependenciesComponentActivity"></activity>
         <activity android:name=".activity.DaggerInjectorActivity"></activity>
         <activity android:name=".activity.AllActivityInjectorActivity"></activity>
+        <activity android:name=".activity.MyViewActivity"></activity>
     </application>
 
 </manifest>
