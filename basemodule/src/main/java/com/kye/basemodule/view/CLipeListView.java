@@ -6,6 +6,7 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.GestureDetector;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -27,8 +28,6 @@ import com.kye.basemodule.R;
 public class CLipeListView extends ListView implements View.OnTouchListener, GestureDetector.OnGestureListener {
 
     private GestureDetector gestureDetector;
-    private   float x=0;
-    private   float y =0;
     public interface DeleteListener {
         void DeleteItem(int position);
     }
@@ -51,9 +50,57 @@ public class CLipeListView extends ListView implements View.OnTouchListener, Ges
     private int mTextcolor = 14;
     private int mCorp_width = 20;
     private int mCorp_height = 20;
-    private int mCorp_margin = 20;
     private int mBackgroupColor =Color.RED;
     private String mText ="删除";
+
+    public int getmTextsize() {
+        return mTextsize;
+    }
+
+    public void setmTextsize(int mTextsize) {
+        this.mTextsize = mTextsize;
+    }
+
+    public int getmTextcolor() {
+        return mTextcolor;
+    }
+
+    public void setmTextcolor(int mTextcolor) {
+        this.mTextcolor = mTextcolor;
+    }
+
+    public int getmCorp_width() {
+        return mCorp_width;
+    }
+
+    public void setmCorp_width(int mCorp_width) {
+        this.mCorp_width = mCorp_width;
+    }
+
+    public int getmCorp_height() {
+        return mCorp_height;
+    }
+
+    public void setmCorp_height(int mCorp_height) {
+        this.mCorp_height = mCorp_height;
+    }
+
+    public int getmBackgroupColor() {
+        return mBackgroupColor;
+    }
+
+    public void setmBackgroupColor(int mBackgroupColor) {
+        this.mBackgroupColor = mBackgroupColor;
+    }
+
+    public String getmText() {
+        return mText;
+    }
+
+    public void setmText(String mText) {
+        this.mText = mText;
+    }
+
 
     public CLipeListView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -62,10 +109,10 @@ public class CLipeListView extends ListView implements View.OnTouchListener, Ges
         setOnTouchListener(this);
         TypedArray typedArray = context.obtainStyledAttributes(attrs,R.styleable.CLipeListView);
         mTextcolor = typedArray.getColor(R.styleable.CLipeListView_corp_text_color, Color.WHITE);
-        mTextsize = typedArray.getDimensionPixelOffset(R.styleable.CLipeListView_corp_text_size,14);
+        mTextsize = typedArray.getInt(R.styleable.CLipeListView_corp_text_size_sp,14);
         mBackgroupColor = typedArray.getColor(R.styleable.CLipeListView_corp_text_background_color,Color.RED);
-        mCorp_height = typedArray.getDimensionPixelOffset(R.styleable.CLipeListView_corp_text_height,20);
-        mCorp_width = typedArray.getDimensionPixelOffset(R.styleable.CLipeListView_corp_text_width,20);
+        mCorp_height = typedArray.getDimensionPixelSize(R.styleable.CLipeListView_corp_text_height,20);
+        mCorp_width = typedArray.getDimensionPixelSize(R.styleable.CLipeListView_corp_text_width,20);
         mText = typedArray.getString(R.styleable.CLipeListView_corp_text);
         typedArray.recycle();
 
@@ -115,7 +162,7 @@ public class CLipeListView extends ListView implements View.OnTouchListener, Ges
                     deleteView = LayoutInflater.from(getContext()).inflate(R.layout.view_delete_text, null);
                     textView = deleteView.findViewById(R.id.corp_text);
                     textView.setText(mText);
-                    textView.setTextSize(mTextsize);
+                    textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,mTextsize);
                     textView.setTextColor(mTextcolor);
                     textView.setBackgroundColor(mBackgroupColor);
                     LinearLayout.LayoutParams textViewLayoutParams = (LinearLayout.LayoutParams) textView.getLayoutParams();

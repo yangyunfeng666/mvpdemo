@@ -23,6 +23,15 @@ public class MyCircleView extends View {
     private int color;//颜色
     private Paint paint;//画笔
 
+    public int getColor() {
+        return color;
+    }
+
+    public void setColor(int color) {
+        this.color = color;
+        paint.setColor(color);
+        invalidate();
+    }
 
     public MyCircleView(Context context) {
         super(context);

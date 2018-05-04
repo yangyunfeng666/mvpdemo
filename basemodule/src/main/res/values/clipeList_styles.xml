@@ -2,7 +2,7 @@
 <resources>
     <declare-styleable name="CLipeListView">
         <attr name="corp_text_color" format="color"></attr>
-        <attr name="corp_text_size" format="dimension"></attr>
+        <attr name="corp_text_size_sp" format="integer"></attr>
         <attr name="corp_text_background_color" format="color"></attr>
         <attr name="corp_text_width" format="dimension"></attr>
         <attr name="corp_text_height" format="dimension"></attr>

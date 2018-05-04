@@ -13,6 +13,7 @@
         app:corp_text="删除"
         app:corp_text_color="@color/white"
         app:corp_text_width="40dp"
+        app:corp_text_size_sp="16"
         ></com.kye.basemodule.view.CLipeListView>
 
 </LinearLayout>
