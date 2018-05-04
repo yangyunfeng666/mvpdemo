@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <com.kye.basemodule.view.CLipeListView
+        android:id="@+id/listview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:corp_text_background_color="@color/red"
+        app:corp_text_height="40dp"
+        app:corp_text="删除"
+        app:corp_text_color="@color/white"
+        app:corp_text_width="40dp"
+        ></com.kye.basemodule.view.CLipeListView>
+
+</LinearLayout>
