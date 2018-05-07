@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="CLipeListView">
+        <attr name="corp_text_color" format="color"></attr>
+        <attr name="corp_text_size_sp" format="integer"></attr>
+        <attr name="corp_text_background_color" format="color"></attr>
+        <attr name="corp_text_width" format="dimension"></attr>
+        <attr name="corp_text_height" format="dimension"></attr>
+        <attr name="corp_text" format="string" ></attr>
+    </declare-styleable>
+</resources>
