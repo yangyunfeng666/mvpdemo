@@ -21,7 +21,6 @@ import java.util.List;
 
 @Dao
 public interface LocalUserInfoDao {
-
     /**
      * 查看所有的用户
      *
@@ -44,5 +43,6 @@ public interface LocalUserInfoDao {
     //更新数据
     @Update
     void updateUsers(LocalUserInfo userInfo);
+
 
 }

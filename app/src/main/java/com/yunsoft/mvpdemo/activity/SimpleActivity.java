@@ -23,12 +23,8 @@ import java.util.List;
 
 public class SimpleActivity extends BaseMvpActivity implements SimpleView {
 
-    private Button load_btn;
-    private Button add_btn;
-    private Button look_btn;
-    private Button update_btn;
-    private Button select_btn;
     private Button glide_btn;
+    private Button green_view;
     private Button brid_btn;
     private Button jsbrid_btn;
     private Button cache_btn;
@@ -40,34 +36,33 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button dragger_base_inject_btn;// 在baseAllModule里面注入
     private Button my_view;// 自定义view 例子
     private Button my_listview;// 自定义listview 例子
+    private Button room_view;// room数据库操作 例子
     private TextView show_txt;
-    private TextView text;
     private SimplePresenter presenter;
+    private Button load_btn;
     @Override
     protected void onCreateBefore() {
     }
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_simple);
-        load_btn = findViewById(R.id.load_btn);
+
         cache_btn = findViewById(R.id.cache_btn);
-        add_btn = findViewById(R.id.add_btn);
-        update_btn = findViewById(R.id.update_btn);
-        look_btn = findViewById(R.id.look_btn);
-        select_btn = findViewById(R.id.select_btn);
+        load_btn = findViewById(R.id.load_btn);
         glide_btn = findViewById(R.id.glide_btn);
         brid_btn = findViewById(R.id.brid_btn);
         jsbrid_btn = findViewById(R.id.jsbrid_btn);
         dragger_btn = findViewById(R.id.dragger_btn);
         my_listview = findViewById(R.id.my_listview);
+        room_view = findViewById(R.id.room_view);
         dragger_mvp_btn = findViewById(R.id.dragger_mvp_btn);
+        green_view = findViewById(R.id.green_view);
         my_view = findViewById(R.id.my_view);
         dragger_dependencise_btn = findViewById(R.id.dragger_dependencise_btn);
         dragger_subcomponent_btn = findViewById(R.id.dragger_subcomponent_btn);
         dragger_base_inject_btn = findViewById(R.id.dragger_base_inject_btn);
         dragger_inject_btn = findViewById(R.id.dragger_inject_btn);
         show_txt = findViewById(R.id.show_txt);
-        text = findViewById(R.id.text);
        //presenter 对象声明
         presenter = new SimplePresenter(this);
         load_btn.setOnClickListener(new View.OnClickListener() {
@@ -77,71 +72,6 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
                 presenter.phoneLogin("13265797978","ab244795339868d6e9d35ed7e7de7e3b","104.22","12.2","31231213233");
             }
         });
-
-//        KyeLogUtils.e("出错了");
-
-
-        add_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                User user = new User();
-                user.setComment("ddddd"+System.currentTimeMillis());
-                user.setDate(new Date());
-                user.setText("dasdasd"+System.currentTimeMillis());
-              long a =  MyApplication.getInstance().getDaoSession().getUserDao().insert(user);
-              KyeLogUtils.e("insertData:"+a,"result long a:"+a);
-            }
-        });
-
-        look_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                List<User> data = MyApplication.getInstance().getDaoSession().getUserDao().loadAll();
-                StringBuffer stringBuffer =new StringBuffer();
-                for(User d:data){
-                   stringBuffer.append(d.toString());
-                }
-                text.setText(stringBuffer);
-            }
-        });
-
-        select_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //这里是判断 id>=3的数据读取出来 当然你也可以其他的查询
-                List<User> data = MyApplication.getInstance().getDaoSession().getUserDao().queryBuilder().where(UserDao.Properties.Id.ge(3)).list();
-                StringBuffer stringBuffer =new StringBuffer();
-                for(User d:data){
-                    stringBuffer.append(d.toString());
-                }
-                text.setText(stringBuffer);
-            }
-        });
-
-        update_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                User user = new User();
-                user.setComment("修改的"+System.currentTimeMillis());
-                user.setDate(new Date());
-                user.setText("dasdasd"+System.currentTimeMillis());
-                user.setId(1l);//设置主键
-                MyApplication.getInstance().getDaoSession().getUserDao().update(user);
-            }
-        });
-
-        update_btn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                User user = new User();
-                user.setComment("修改的"+System.currentTimeMillis());
-                user.setDate(new Date());
-                user.setText("dasdasd"+System.currentTimeMillis());
-                user.setId(1l);//设置主键
-                MyApplication.getInstance().getDaoSession().getUserDao().update(user);
-            }
-        });
-
         glide_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -224,6 +154,20 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SimpleActivity.this,MyListViewActivity.class);
+                startActivity(intent);
+            }
+        });
+        room_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,RoomActivity.class);
+                startActivity(intent);
+            }
+        });
+        green_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,GreenDaoActivity.class);
                 startActivity(intent);
             }
         });

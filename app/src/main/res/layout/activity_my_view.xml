@@ -8,9 +8,9 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_centerInParent="true"
+        app:show="true"
         app:inner_color="@color/colorPrimaryDark"
         />
-
 
     <com.kye.basemodule.view.CircleImageView
         android:id="@+id/circleImage"
@@ -26,20 +26,38 @@
         android:layout_width="50dp"
         android:layout_height="50dp"
         android:layout_alignParentBottom="true"
-
         />
 
-    <com.kye.basemodule.view.CircleProgress
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+
+
+    <com.kye.basemodule.view.MyCircleProgress
+        android:id="@+id/progress"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:progress_show_txt="true"
+        app:progress_show_progress="true"
+        app:progress_str="@string/app_name"
+        app:progress_border_width="5dp"
+        app:progress_bordercolor="@color/red"
+        app:progress_border_bg_color="@color/green"
+        app:progress_max_value="100"
+        app:progress_current_value="30"
+        app:progress_text_color="@color/yellow"
+        app:progress_text_size="10sp"
+        app:progress_p_text_color="@color/red"
+        app:progress_p_text_size="15sp"
+        app:progress_suffix="%"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-            app:circle_show_text="true"
-        app:circle_progress="40"
-        app:circle_max_progress="100"
-        app:circle_text_color="@color/red"
-        app:circle_border_width="4dp"
-        app:circle_text_size="12sp"
+        />
+
+
+    <Button
+        android:id="@+id/click_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:text="@string/app_name"
         />
 
 </RelativeLayout>

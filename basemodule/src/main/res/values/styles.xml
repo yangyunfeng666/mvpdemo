@@ -82,6 +82,10 @@
 
     <declare-styleable name="MyCircleView">
         <attr name="inner_color" format="color"></attr>
+        <attr name="show" format="boolean"></attr>
     </declare-styleable>
+
+
+
 
 </resources>

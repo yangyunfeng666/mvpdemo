@@ -129,7 +129,8 @@ dependencies {
     implementation project(':basemodule')
     compile "android.arch.persistence.room:runtime:$JAR.roomVersion"
     annotationProcessor "android.arch.persistence.room:compiler:$JAR.roomVersion"
-
+    implementation "android.arch.persistence.room:rxjava2:$JAR.roomVersion"
+    testImplementation "android.arch.persistence.room:testing:$JAR.roomVersion"
     // Dagger dependencies
     annotationProcessor "com.google.dagger:dagger-compiler:$JAR.dagger"
     provided 'org.glassfish:javax.annotation:10.0-b28'

@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="MyCircleProgress">
+        <!--border背景颜色-->
+        <attr name="progress_border_bg_color" format="color"></attr>
+        <!--border的颜色-->
+        <attr name="progress_bordercolor" format="color"></attr>
+        <!--是否显示内容文本-->
+        <attr name="progress_show_txt" format="boolean"></attr>
+        <!--border宽度-->
+        <attr name="progress_border_width" format="dimension"></attr>
+        <!--内容的文本-->
+        <attr name="progress_str" format="string"></attr>
+        <!--显示后缀-->
+        <attr name="progress_suffix" format="string"></attr>
+        <!--当前进度值-->
+        <attr name="progress_current_value" format="integer"></attr>
+        <!--最大进度值-->
+        <attr name="progress_max_value" format="integer"></attr>
+        <!--显示字体大小-->
+        <attr name="progress_text_size" format="dimension"></attr>
+        <!--显示字体颜色-->
+        <attr name="progress_text_color" format="color"></attr>
+        <!--是否显示进度文本-->
+        <attr name="progress_show_progress" format="boolean"></attr>
+        <!--显示prgress字体大小-->
+        <attr name="progress_p_text_size" format="dimension"></attr>
+        <!--显示progress字体颜色-->
+        <attr name="progress_p_text_color" format="color"></attr>
+    </declare-styleable>
+</resources>

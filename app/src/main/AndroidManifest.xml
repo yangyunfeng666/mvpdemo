@@ -32,6 +32,8 @@
         <activity android:name=".activity.AllActivityInjectorActivity"></activity>
         <activity android:name=".activity.MyViewActivity"></activity>
         <activity android:name=".activity.MyListViewActivity"></activity>
+        <activity android:name=".activity.RoomActivity"></activity>
+        <activity android:name=".activity.GreenDaoActivity"></activity>
     </application>
 
 </manifest>
