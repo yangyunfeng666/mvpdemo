@@ -37,6 +37,8 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button my_view;// 自定义view 例子
     private Button my_listview;// 自定义listview 例子
     private Button room_view;// room数据库操作 例子
+    private Button lifecycle_view;// lifecycle  例子
+    private Button livedata_view;// livedata  例子
     private TextView show_txt;
     private SimplePresenter presenter;
     private Button load_btn;
@@ -57,7 +59,9 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         room_view = findViewById(R.id.room_view);
         dragger_mvp_btn = findViewById(R.id.dragger_mvp_btn);
         green_view = findViewById(R.id.green_view);
+        lifecycle_view = findViewById(R.id.lifecycle_view);
         my_view = findViewById(R.id.my_view);
+        livedata_view = findViewById(R.id.livedata_view);
         dragger_dependencise_btn = findViewById(R.id.dragger_dependencise_btn);
         dragger_subcomponent_btn = findViewById(R.id.dragger_subcomponent_btn);
         dragger_base_inject_btn = findViewById(R.id.dragger_base_inject_btn);
@@ -168,6 +172,21 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SimpleActivity.this,GreenDaoActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        lifecycle_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,LifeCycleActivity.class);
+                startActivity(intent);
+            }
+        });
+        livedata_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,LiveDataActivity.class);
                 startActivity(intent);
             }
         });

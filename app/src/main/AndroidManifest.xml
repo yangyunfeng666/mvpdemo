@@ -34,6 +34,8 @@
         <activity android:name=".activity.MyListViewActivity"></activity>
         <activity android:name=".activity.RoomActivity"></activity>
         <activity android:name=".activity.GreenDaoActivity"></activity>
+        <activity android:name=".activity.LifeCycleActivity"></activity>
+        <activity android:name=".activity.LiveDataActivity"></activity>
     </application>
 
 </manifest>

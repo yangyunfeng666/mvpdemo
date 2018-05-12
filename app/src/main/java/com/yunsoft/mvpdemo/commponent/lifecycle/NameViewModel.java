@@ -2,6 +2,7 @@ package com.yunsoft.mvpdemo.commponent.lifecycle;
 
 import android.arch.lifecycle.LifecycleRegistry;
 import android.arch.lifecycle.LiveData;
+import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.os.storage.StorageManager;
 
@@ -20,5 +21,13 @@ import io.reactivex.internal.fuseable.SimplePlainQueue;
 
 public class NameViewModel extends ViewModel {
 
+    private MutableLiveData<String> mNameLiveData;
+
+    public MutableLiveData<String> getmNameLiveData(){
+        if(mNameLiveData==null){
+              mNameLiveData = new MutableLiveData<String>();
+        }
+        return mNameLiveData;
+    }
 
 }
