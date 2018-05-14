@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.yunsoft.mvpdemo.MyApplication;
 import com.yunsoft.mvpdemo.R;
 import com.yunsoft.mvpdemo.db.AppDatabase;
 import com.yunsoft.mvpdemo.db.LocalUser;
@@ -61,7 +62,8 @@ public class RoomActivity extends BaseMvpActivity  {
                         localUser.setAge(1);
                         localUser.setSex("男");
                         localUser.setUsername("小于");
-                        AppDatabase.getInstance(getApplicationContext()).LocalUserDao().insert(localUser);
+                        ((MyApplication)getApplicationContext()).getDataBase().LocalUserDao().insert(localUser);
+                        ((MyApplication)getApplicationContext()).getDataBase().init();
                     }
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new CompletableObserver() {
                     @Override
@@ -97,7 +99,7 @@ public class RoomActivity extends BaseMvpActivity  {
                         localUser.setAge(1);
                         localUser.setSex("男");
                         localUser.setUsername("小于");
-                        AppDatabase.getInstance(getApplicationContext()).LocalUserDao().update(localUser);
+                        ((MyApplication)getApplicationContext()).getDataBase().LocalUserDao().update(localUser);
                     }
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new CompletableObserver() {
                     @Override
@@ -131,7 +133,7 @@ public class RoomActivity extends BaseMvpActivity  {
                         localUser.setAge(1);
                         localUser.setSex("男");
                         localUser.setUsername("小于");
-                        AppDatabase.getInstance(getApplicationContext()).LocalUserDao().delete(localUser);
+                        ((MyApplication)getApplicationContext()).getDataBase().LocalUserDao().delete(localUser);
                     }
                 }).subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new CompletableObserver() {
                     @Override
@@ -157,12 +159,12 @@ public class RoomActivity extends BaseMvpActivity  {
             @Override
             public void onClick(View v) {
                 //这里使用了
-                AppDatabase.getInstance(getApplicationContext()).LocalUserDao().quertAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<List<LocalUser>>() {
+              ((MyApplication)getApplicationContext()).getDataBase().LocalUserDao().quertAll().subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread()).subscribe(new Consumer<List<LocalUser>>() {
                     @Override
                     public void accept(List<LocalUser> localUsers) throws Exception {
                         //这里在主线程调用了
                         LocalUser localUser1 = localUsers.get(localUsers.size()-1);
-                        show_txt.setText("中的数据条数是："+localUsers.size()+"id:"+localUser1.getId()+"username:"+localUser1.getUsername());
+                        show_txt.setText("中的数据条数是："+localUsers.size()+"id:"+localUser1.getId()+"username:"+localUser1.getUsername()+"publics:"+localUser1.getPublics());
                     }
                 });
             }

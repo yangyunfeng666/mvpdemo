@@ -1,5 +1,6 @@
 package com.yunsoft.mvpdemo.db;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
@@ -34,6 +35,8 @@ public interface LocalUserDao {
     //这里是ages在那些阶段的
     @Query("select username,age from localuser where age in(:ages) ")
     List<showData> quert(List<Integer> ages );
+    @Query("select * from localuser")
+    LiveData<List<LocalUser>> quertAllLocalUser();
 
     public class showData{
         //这里必须要get set属性

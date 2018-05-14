@@ -3,6 +3,7 @@ package com.yunsoft.mvpdemo.commponent.lifecycle;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 
+import com.yunsoft.mvpdemo.db.AppDatabase;
 import com.yunsoft.mvpdemo.persistence.sqlite.dao.User;
 
 import java.util.List;

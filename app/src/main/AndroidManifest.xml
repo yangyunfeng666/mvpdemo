@@ -36,6 +36,7 @@
         <activity android:name=".activity.GreenDaoActivity"></activity>
         <activity android:name=".activity.LifeCycleActivity"></activity>
         <activity android:name=".activity.LiveDataActivity"></activity>
+        <activity android:name=".activity.ViewModelActivity"></activity>
     </application>
 
 </manifest>

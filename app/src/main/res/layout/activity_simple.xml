@@ -116,6 +116,12 @@
             android:layout_height="wrap_content"
             android:text="liveData" />
 
+   <Button
+            android:id="@+id/viewmodel_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="viewmodel" />
+
 
 
     </LinearLayout>

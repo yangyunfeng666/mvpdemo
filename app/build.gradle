@@ -32,7 +32,6 @@ android {
                                      "$projectDir/schemas".toString()]
             }
         }
-
     }
     // 签名配置
     signingConfigs {
@@ -75,7 +74,7 @@ android {
             jniLibs.srcDirs = ['libs']
         }
         // Move the tests to tests/java, tests/res, etc...
-        instrumentTest.setRoot('tests')
+        androidTest.setRoot('tests')
         // Move the build types to build-types/<type>
         // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
         // This moves them out of them default location under src/<type>/... which would
@@ -130,37 +129,37 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':basemodule')
 //    // ViewModel and LiveData
-//    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
-//    // alternatively - just ViewModel
-//    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version" // use -ktx for Kotlin
-//    // alternatively - just LiveData
-//    implementation "android.arch.lifecycle:livedata:$lifecycle_version"
-//    // alternatively - Lifecycles only (no ViewModel or LiveData).
-//    //     Support library depends on this lightweight import
-//    implementation "android.arch.lifecycle:runtime:$lifecycle_version"
-//    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
-//    // alternately - if using Java8, use the following instead of compiler
-//    implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
-//    // optional - ReactiveStreams support for LiveData
-//    implementation "android.arch.lifecycle:reactivestreams:$lifecycle_version"
-//    // optional - Test helpers for LiveData
-//    testImplementation "android.arch.core:core-testing:$lifecycle_version"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+    // alternatively - just ViewModel
+    implementation "android.arch.lifecycle:viewmodel:$lifecycle_version" // use -ktx for Kotlin
+    // alternatively - just LiveData
+    implementation "android.arch.lifecycle:livedata:$lifecycle_version"
+    // alternatively - Lifecycles only (no ViewModel or LiveData).
+    //     Support library depends on this lightweight import
+    implementation "android.arch.lifecycle:runtime:$lifecycle_version"
+    annotationProcessor "android.arch.lifecycle:compiler:$lifecycle_version"
+    // alternately - if using Java8, use the following instead of compiler
+    implementation "android.arch.lifecycle:common-java8:$lifecycle_version"
+    // optional - ReactiveStreams support for LiveData
+    implementation "android.arch.lifecycle:reactivestreams:$lifecycle_version"
+    // optional - Test helpers for LiveData
+    testImplementation "android.arch.core:core-testing:$lifecycle_version"
 
 
-    compile "android.arch.persistence.room:runtime:$JAR.roomVersion"
+    implementation "android.arch.persistence.room:runtime:$JAR.roomVersion"
 
     annotationProcessor "android.arch.persistence.room:compiler:$JAR.roomVersion"
     implementation "android.arch.persistence.room:rxjava2:$JAR.roomVersion"
     testImplementation "android.arch.persistence.room:testing:$JAR.roomVersion"
     // Dagger dependencies
     annotationProcessor "com.google.dagger:dagger-compiler:$JAR.dagger"
-    provided 'org.glassfish:javax.annotation:10.0-b28'
-    compile "com.google.dagger:dagger:$JAR.dagger"
-    compile "com.google.dagger:dagger-android:$JAR.dagger"
-    compile "com.google.dagger:dagger-android-support:$JAR.dagger"
+    compileOnly 'org.glassfish:javax.annotation:10.0-b28'
+    implementation "com.google.dagger:dagger:$JAR.dagger"
+    implementation "com.google.dagger:dagger-android:$JAR.dagger"
+    implementation "com.google.dagger:dagger-android-support:$JAR.dagger"
     annotationProcessor "com.google.dagger:dagger-android-processor:$JAR.dagger"
-    compile (name:'extensions-1.1.1',ext:'aar')
-    compile (name:'livedata-1.1.1',ext:'aar')
+//    compile (name:'extensions-1.1.1',ext:'aar')
+//    compile (name:'livedata-1.1.1',ext:'aar')
     // https://mvnrepository.com/artifact/android.arch.lifecycle/extensions
 //    compile group: 'android.arch.lifecycle', name: 'extensions', version: '1.1.0'
 

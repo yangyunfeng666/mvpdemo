@@ -8,10 +8,13 @@ import com.yunsoft.mvpdemo.dagger.ActivityComponent;
 import com.yunsoft.mvpdemo.dagger.DaggerActivityComponent;
 import com.yunsoft.mvpdemo.dagger.DaggerAppComponent;
 import com.yunsoft.mvpdemo.dagger.DaggerMyAppCommponent;
+import com.yunsoft.mvpdemo.data.AppExecutors;
+import com.yunsoft.mvpdemo.db.AppDatabase;
 import com.yunsoft.mvpdemo.db.DaoMaster;
 import com.yunsoft.mvpdemo.db.DaoSession;
 import com.yunsoft.mvpdemo.dagger.AppComponent;
 import com.yunsoft.mvpdemo.dagger.AppModule;
+import com.yunsoft.mvpdemo.db.DataRepository;
 import com.yunsoft.mvpdemo.persistence.perf.SharePreHelper;
 import com.yunsoft.mvpdemo.persistence.sqlite.UpdateOpenHelper;
 
@@ -36,6 +39,7 @@ public class MyApplication extends Application implements HasActivityInjector {
 
     private AppComponent mAppComponent;
     private ActivityComponent mActivityComponent;
+    private AppExecutors  mAppExecutors ;
 
     //注入 DispatchingAndroidInjector 在 DaggerMyAppCommponent什么时候填入
     //管理XXXXActivityProvider
@@ -53,6 +57,7 @@ public class MyApplication extends Application implements HasActivityInjector {
         mAppComponent = DaggerAppComponent.builder().appModule(new AppModule(this)).build();
         mActivityComponent =DaggerActivityComponent.builder().appModule(new AppModule(this)).build();
         DaggerMyAppCommponent.builder().build().inject(this);
+        mAppExecutors = new AppExecutors();
     }
 
 
@@ -86,5 +91,13 @@ public class MyApplication extends Application implements HasActivityInjector {
     @Override
     public AndroidInjector<Activity> activityInjector() {
         return dispatchingActivityInjector;
+    }
+
+    public AppDatabase getDataBase(){
+       return AppDatabase.getInstance(this, mAppExecutors);
+    }
+
+    public DataRepository getRepository() {
+        return DataRepository.getInstance(getDataBase());
     }
 }

@@ -19,6 +19,15 @@ public class LocalUser {
     @ColumnInfo(name = "sex")
     private String sex;
     private int age;
+    private String publics;
+
+    public String getPublics() {
+        return publics;
+    }
+
+    public void setPublics(String publics) {
+        this.publics = publics;
+    }
 
     public int getId() {
         return id;
@@ -50,5 +59,16 @@ public class LocalUser {
 
     public void setAge(int age) {
         this.age = age;
+    }
+
+    @Override
+    public String toString() {
+        return "LocalUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", sex='" + sex + '\'' +
+                ", age=" + age +
+                ", publics='" + publics + '\'' +
+                '}';
     }
 }

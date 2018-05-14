@@ -1,7 +1,10 @@
 package com.yunsoft.mvpdemo.activity;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -10,7 +13,9 @@ import com.kye.basemodule.log.KyeLogUtils;
 import com.yunsoft.mvpdemo.MyApplication;
 import com.yunsoft.mvpdemo.R;
 import com.yunsoft.mvpdemo.data.LocalUserInfo;
+import com.yunsoft.mvpdemo.db.LocalUser;
 import com.yunsoft.mvpdemo.db.UserDao;
+import com.yunsoft.mvpdemo.db.UserListViewModel;
 import com.yunsoft.mvpdemo.mvp.BaseMvpActivity;
 import com.yunsoft.mvpdemo.persistence.sqlite.dao.User;
 
@@ -39,6 +44,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button room_view;// room数据库操作 例子
     private Button lifecycle_view;// lifecycle  例子
     private Button livedata_view;// livedata  例子
+    private Button viewmodel_view;// viewmodel  例子
     private TextView show_txt;
     private SimplePresenter presenter;
     private Button load_btn;
@@ -66,6 +72,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         dragger_subcomponent_btn = findViewById(R.id.dragger_subcomponent_btn);
         dragger_base_inject_btn = findViewById(R.id.dragger_base_inject_btn);
         dragger_inject_btn = findViewById(R.id.dragger_inject_btn);
+        viewmodel_view = findViewById(R.id.viewmodel_view);
         show_txt = findViewById(R.id.show_txt);
        //presenter 对象声明
         presenter = new SimplePresenter(this);
@@ -188,6 +195,29 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
             public void onClick(View v) {
                 Intent intent = new Intent(SimpleActivity.this,LiveDataActivity.class);
                 startActivity(intent);
+            }
+        });
+        viewmodel_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,ViewModelActivity.class);
+                startActivity(intent);
+            }
+        });
+
+
+        UserListViewModel userListViewModel = ViewModelProviders.of(this).get(UserListViewModel.class);
+
+        userListViewModel.getUserListData().observe(this, new Observer<List<LocalUser>>() {
+            @Override
+            public void onChanged(@Nullable List<LocalUser> localUsers) {
+                if(localUsers!=null){
+                    for (LocalUser u: localUsers
+                            ) {
+                        KyeLogUtils.e(u.toString());
+
+                    }
+                }
             }
         });
     }

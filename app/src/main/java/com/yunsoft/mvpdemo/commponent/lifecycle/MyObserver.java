@@ -4,6 +4,7 @@ import android.arch.lifecycle.Lifecycle;
 import android.arch.lifecycle.LifecycleObserver;
 import android.arch.lifecycle.OnLifecycleEvent;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Author: yangyunfeng
@@ -34,7 +35,6 @@ public class MyObserver implements LifecycleObserver {
     @OnLifecycleEvent(Lifecycle.Event.ON_DESTROY)
     public void onstop(){
         Log.e("MyObserver","ON_DESTROY onDisConnectionListner");
-
     }
 
 }
