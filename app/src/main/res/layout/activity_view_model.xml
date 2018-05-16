@@ -11,4 +11,18 @@
     android:layout_height="wrap_content"
     android:text="增加数据"/>
 
+
+
+    <Button
+        android:id="@+id/update_btn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="修改数据"/>
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="当前数据："
+        />
 </LinearLayout>
