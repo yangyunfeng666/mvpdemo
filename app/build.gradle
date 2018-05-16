@@ -158,9 +158,5 @@ dependencies {
     implementation "com.google.dagger:dagger-android:$JAR.dagger"
     implementation "com.google.dagger:dagger-android-support:$JAR.dagger"
     annotationProcessor "com.google.dagger:dagger-android-processor:$JAR.dagger"
-//    compile (name:'extensions-1.1.1',ext:'aar')
-//    compile (name:'livedata-1.1.1',ext:'aar')
-    // https://mvnrepository.com/artifact/android.arch.lifecycle/extensions
-//    compile group: 'android.arch.lifecycle', name: 'extensions', version: '1.1.0'
 
 }
