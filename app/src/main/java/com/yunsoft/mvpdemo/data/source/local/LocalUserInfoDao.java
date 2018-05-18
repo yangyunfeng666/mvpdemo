@@ -1,5 +1,6 @@
 package com.yunsoft.mvpdemo.data.source.local;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.Insert;
@@ -34,8 +35,8 @@ public interface LocalUserInfoDao {
      * @param telephone
      * @return
      */
-    @Query("select * from LocalUserInfo where userid =:telephone")
-    LocalUserInfo getUserById(int telephone);
+    @Query("select * from LocalUserInfo where telephone =:telephone")
+    LiveData<LocalUserInfo> getUserById(String telephone);
 
     //插入数据
     @Insert(onConflict = OnConflictStrategy.REPLACE)

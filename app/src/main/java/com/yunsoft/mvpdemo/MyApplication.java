@@ -93,6 +93,10 @@ public class MyApplication extends Application implements HasActivityInjector {
         return dispatchingActivityInjector;
     }
 
+    public AppExecutors getAppExecutors() {
+        return mAppExecutors;
+    }
+
     public AppDatabase getDataBase(){
        return AppDatabase.getInstance(this, mAppExecutors);
     }
