@@ -18,6 +18,7 @@ import com.yunsoft.mvpdemo.MyApplication;
 import com.yunsoft.mvpdemo.R;
 import com.yunsoft.mvpdemo.commponent.lifecycle.MyLiveData;
 import com.yunsoft.mvpdemo.commponent.lifecycle.MyViewModel;
+import com.yunsoft.mvpdemo.commponent.lifecycle.UserProfileViewModel;
 import com.yunsoft.mvpdemo.commponent.lifecycle.UserViewModel;
 import com.yunsoft.mvpdemo.db.DataRepository;
 import com.yunsoft.mvpdemo.db.LocalUser;
@@ -40,7 +41,6 @@ import javax.inject.Inject;
 
 public class ViewModelActivity extends BaseMvpActivity {
 
-    private MyViewModel myViewModel;
 
 
     private Button button;
@@ -51,6 +51,8 @@ public class ViewModelActivity extends BaseMvpActivity {
 
     private Button update_btn;
 
+    private UserProfileViewModel  userProfileViewModel;
+
     @Override
     protected void onCreateBefore() {
 
@@ -59,13 +61,7 @@ public class ViewModelActivity extends BaseMvpActivity {
     @Override
     protected void initViews(Bundle savedInstanceState) {
         setContentView(R.layout.activity_view_model);
-        //注册这个myViewModel viewmodelStroe里面 通过 ViewModelProviders 与lifecycle 关联
-        myViewModel = ViewModelProviders.of(this).get(MyViewModel.class);
-        //绑定当前生命周期和返回数据更新UI
-        myViewModel.getList().observe(this,users -> {
-            //update UI
 
-        });
         text = findViewById(R.id.text);
         update_btn = findViewById(R.id.update_btn);
         update_btn.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +70,17 @@ public class ViewModelActivity extends BaseMvpActivity {
             startActivity(new Intent(ViewModelActivity.this,ViewModelUpdateActivity.class));
             }
         });
+        userProfileViewModel = ViewModelProviders.of(this).get(UserProfileViewModel.class);
+        userProfileViewModel.init("1");
+        userProfileViewModel.getUserLiveData().observe(this, new Observer<LocalUser>() {
+            @Override
+            public void onChanged(@Nullable LocalUser localUser) {
+                if(localUser!=null) {
+                    text.setText(localUser.toString());
+                }
+            }
+        });
+
         userViewModel = ViewModelProviders.of(this).get(UserViewModel.class);
         userViewModel.getLocalData().observe(this, new Observer<String>() {
             @Override
@@ -83,30 +90,7 @@ public class ViewModelActivity extends BaseMvpActivity {
                 }
             }
         });
-        MyLiveData liveData = MyLiveData.getInstance(getApplication());
-        liveData.observe(this, new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                if(!TextUtils.isEmpty(s)) {
-                    text.setText(s);
-                }
-            }
-        });
-        button = findViewById(R.id.button);
-        //改变数据
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                LocalUser localUser = new LocalUser();
-                localUser.setUsername("张佳楠");
-                localUser.setSex("男");
-                localUser.setAge(12);
-                localUser.setPublics("海南");
-                List<LocalUser> localUsers = new ArrayList<>();
-                localUsers.add(localUser);
-                ((MyApplication)getApplication()).getRepository().setListUserData(localUsers);
-            }
-        });
+
     }
 
     @Override

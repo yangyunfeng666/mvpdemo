@@ -13,6 +13,8 @@ import android.support.annotation.NonNull;
 import android.util.Log;
 
 import com.yunsoft.mvpdemo.data.AppExecutors;
+import com.yunsoft.mvpdemo.data.LocalUserInfo;
+import com.yunsoft.mvpdemo.data.source.local.LocalUserInfoDao;
 
 /**
  * Author: yangyunfeng
@@ -20,11 +22,12 @@ import com.yunsoft.mvpdemo.data.AppExecutors;
  * Description:this is AppDatabase
  */
 //有几张表就在 entities里面添加，而且要定义对表操作的抽象方法，返回值就是抽象类 version是数据库版本号 是升级的触发条件
-@Database(entities = {LocalUser.class,Book.class,Friend.class},version = 3,exportSchema = true)
+@Database(entities = {LocalUser.class,Book.class,Friend.class, LocalUserInfo.class},version = 3,exportSchema = true)
 @TypeConverters({Converters.class})
 public abstract class AppDatabase extends RoomDatabase {
 
     public abstract LocalUserDao LocalUserDao();
+    public abstract LocalUserInfoDao LocalUserInfoDao();
     public abstract BookDao BookDao();
     private static String Db_name = "Mydb.db";//定义数据的名称
     private  static volatile AppDatabase mInstance;//单例定义代码

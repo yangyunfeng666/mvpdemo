@@ -12,7 +12,7 @@ import android.support.annotation.NonNull;
 /**
  * user 对象
  */
-@Entity(tableName = "localuser")
+@Entity(tableName = "LocalUserInfo")
 public class LocalUserInfo implements Parcelable {
     @PrimaryKey
     @NonNull

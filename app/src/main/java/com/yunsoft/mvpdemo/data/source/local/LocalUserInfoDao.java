@@ -26,7 +26,7 @@ public interface LocalUserInfoDao {
      *
      * @return
      */
-    @Query("SELECT * FROM localuser")
+    @Query("SELECT * FROM LocalUserInfo")
     List<LocalUserInfo> getUsers();
     /**
      * 根据id 读取用户
@@ -34,7 +34,7 @@ public interface LocalUserInfoDao {
      * @param telephone
      * @return
      */
-    @Query("select * from localuser where userid =:telephone")
+    @Query("select * from LocalUserInfo where userid =:telephone")
     LocalUserInfo getUserById(int telephone);
 
     //插入数据

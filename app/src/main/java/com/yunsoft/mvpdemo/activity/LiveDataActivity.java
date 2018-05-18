@@ -4,16 +4,24 @@ import android.arch.lifecycle.LiveData;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.Transformations;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.yunsoft.mvpdemo.MyApplication;
 import com.yunsoft.mvpdemo.R;
+import com.yunsoft.mvpdemo.commponent.lifecycle.MyLiveData;
 import com.yunsoft.mvpdemo.commponent.lifecycle.NameViewModel;
+import com.yunsoft.mvpdemo.db.LocalUser;
 import com.yunsoft.mvpdemo.persistence.sqlite.dao.User;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Author: yangyunfeng
@@ -52,11 +60,28 @@ public class LiveDataActivity extends AppCompatActivity {
 //        nameViewModel.getmNameLiveData().observe(this,s -> {
 //            text.setText(s);
 //        });
+//        button.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                //更新数据
+//                nameViewModel.getmNameLiveData().setValue("hello world");
+//            }
+//        });
+        MyLiveData liveData = MyLiveData.getInstance(getApplication());
+        liveData.observe(this, new Observer<String>() {
+            @Override
+            public void onChanged(@Nullable String s) {
+                if(!TextUtils.isEmpty(s)) {
+                    text.setText(s);
+                }
+            }
+        });
+        button = findViewById(R.id.button);
+        //改变数据
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //更新数据
-                nameViewModel.getmNameLiveData().setValue("hello world");
+                startActivity(new Intent(LiveDataActivity.this,ViewModelUpdateActivity.class));
             }
         });
 

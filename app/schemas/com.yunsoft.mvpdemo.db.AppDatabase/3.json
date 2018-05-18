@@ -2,7 +2,7 @@
   "formatVersion": 1,
   "database": {
     "version": 3,
-    "identityHash": "777d72752d563d028860f8ac2913b673",
+    "identityHash": "cb9a42d60195853be554161c08a0efbc",
     "entities": [
       {
         "tableName": "localuser",
@@ -138,11 +138,109 @@
         },
         "indices": [],
         "foreignKeys": []
+      },
+      {
+        "tableName": "LocalUserInfo",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`userid` INTEGER NOT NULL, `username` TEXT, `nickname` TEXT, `headurl` TEXT, `cover` TEXT, `token` TEXT, `sex` TEXT, `age` TEXT, `sign` TEXT, `emotion` TEXT, `email` TEXT, `telephone` TEXT, `password` TEXT, `lastLoginType` INTEGER NOT NULL, PRIMARY KEY(`userid`))",
+        "fields": [
+          {
+            "fieldPath": "userid",
+            "columnName": "userid",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "username",
+            "columnName": "username",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nickname",
+            "columnName": "nickname",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "headurl",
+            "columnName": "headurl",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cover",
+            "columnName": "cover",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "token",
+            "columnName": "token",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sex",
+            "columnName": "sex",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "age",
+            "columnName": "age",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sign",
+            "columnName": "sign",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "emotion",
+            "columnName": "emotion",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "telephone",
+            "columnName": "telephone",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "password",
+            "columnName": "password",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "lastLoginType",
+            "columnName": "lastLoginType",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "userid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
       }
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"777d72752d563d028860f8ac2913b673\")"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, \"cb9a42d60195853be554161c08a0efbc\")"
     ]
   }
 }
