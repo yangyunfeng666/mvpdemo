@@ -1,5 +1,6 @@
 package com.yunsoft.mvpdemo.data.source.local;
 
+import android.arch.lifecycle.LiveData;
 import android.support.annotation.NonNull;
 
 import com.kye.basemodule.log.KyeLogUtils;
@@ -51,7 +52,7 @@ public class UserLocalDataSource  implements UsersDataSource,UserLocalDatabaseIm
             Runnable runnable = new Runnable() {
                 @Override
                 public void run() {
-                    LocalUserInfo localUserInfo = mLocalUserDao.getUserById(59);
+                    LocalUserInfo localUserInfo = mLocalUserDao.getUserById("59");
                     if(localUserInfo!=null){
                         KyeLogUtils.i("show","database get ");
                         callBack.onUserLocalLoad(localUserInfo);

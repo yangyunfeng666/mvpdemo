@@ -6,6 +6,8 @@ import android.arch.lifecycle.Observer;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.kye.basemodule.log.KyeLogUtils;
+import com.kye.basemodule.network.base.BaseResponse;
 import com.yunsoft.mvpdemo.commponent.lifecycle.data.source.local.LocalDataSource;
 import com.yunsoft.mvpdemo.commponent.lifecycle.data.source.remote.RemoteDataSource;
 import com.yunsoft.mvpdemo.data.AppExecutors;
@@ -46,9 +48,11 @@ public  class DataRepository  {
 
     public LiveData<Resource<LocalUserInfo>> getLoginUser(String telephone, String password, String longitude, String latitude, String JpushId) {
         return  new NetworkBoundResource<LocalUserInfo,LocalUserInfo>(){
+
             @Override
             protected void saveCallResult(@NonNull LocalUserInfo item) {
-                    //加载网络数据成功写数据库
+                //加载网络数据成功写数据库
+                localDataSource.insert(item);
             }
 
             @Override
@@ -62,18 +66,21 @@ public  class DataRepository  {
                 return localDataSource.getLoginUser(telephone,password,longitude,latitude,JpushId);
             }
 
+
             @NonNull
             @Override
-            protected LiveData<ApiResponse<LocalUserInfo>> createCall() {
-                MediatorLiveData<ApiResponse<LocalUserInfo>> result = new MediatorLiveData<>();
+            protected LiveData<ApiResponse<BaseResponse<LocalUserInfo>>> createCall() {
+                MediatorLiveData<ApiResponse<BaseResponse<LocalUserInfo>>> result = new MediatorLiveData<>();
                 executor.networkIO().execute(new Runnable() {//切换线程执行
                     @Override
                     public void run() {
                         try {
-                            result.addSource(remoteDataSource.getLoginUser(telephone, password, longitude, latitude, JpushId), new Observer<ApiResponse<LocalUserInfo>>() {
+                            LiveData<ApiResponse<BaseResponse<LocalUserInfo>>> data =remoteDataSource.getLoginUser(telephone, password, longitude, latitude, JpushId);
+                            KyeLogUtils.e("data:"+data.toString());
+                            result.addSource(data, new Observer<ApiResponse<BaseResponse<LocalUserInfo>>>() {
                                 @Override
-                                public void onChanged(@Nullable ApiResponse<LocalUserInfo> localUserInfoApiResponse) {
-                                    result.setValue(localUserInfoApiResponse);
+                                public void onChanged(@Nullable ApiResponse<BaseResponse<LocalUserInfo>> localUserInfoApiResponse) {
+                                    result.postValue(localUserInfoApiResponse);
                                 }
                             });
                         } catch (IOException e) {

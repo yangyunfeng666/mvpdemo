@@ -45,6 +45,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button lifecycle_view;// lifecycle  例子
     private Button livedata_view;// livedata  例子
     private Button viewmodel_view;// viewmodel  例子
+    private Button viewlivelift_view;// viewmodel+livedata+lifecycle+retrofit+okhttp  例子
     private TextView show_txt;
     private SimplePresenter presenter;
     private Button load_btn;
@@ -73,6 +74,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         dragger_base_inject_btn = findViewById(R.id.dragger_base_inject_btn);
         dragger_inject_btn = findViewById(R.id.dragger_inject_btn);
         viewmodel_view = findViewById(R.id.viewmodel_view);
+        viewlivelift_view = findViewById(R.id.viewlivelift_view);
         show_txt = findViewById(R.id.show_txt);
        //presenter 对象声明
         presenter = new SimplePresenter(this);
@@ -201,6 +203,14 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SimpleActivity.this,ViewModelActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        viewlivelift_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,TestViewDataActivity.class);
                 startActivity(intent);
             }
         });

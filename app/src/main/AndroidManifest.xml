@@ -38,6 +38,7 @@
         <activity android:name=".activity.LiveDataActivity"></activity>
         <activity android:name=".activity.ViewModelActivity"></activity>
         <activity android:name=".activity.ViewModelUpdateActivity"></activity>
+        <activity android:name=".activity.TestViewDataActivity"></activity>
     </application>
 
 </manifest>

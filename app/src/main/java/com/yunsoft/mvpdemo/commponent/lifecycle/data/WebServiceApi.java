@@ -26,7 +26,7 @@ public interface WebServiceApi {
     @POST("user/login.do")
     @FormUrlEncoded
         //中文乱码问题
-    Call<LocalUserInfo> phonelogin(@Field("telephone") String telephone,
+    Call<BaseResponse<LocalUserInfo>> phonelogin(@Field("telephone") String telephone,
                                                                 @Field("password") String password,
                                                                 @Field("longitude") String longitude,
                                                                 @Field("latitude") String latitude,

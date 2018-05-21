@@ -36,7 +36,16 @@ public interface LocalUserInfoDao {
      * @return
      */
     @Query("select * from LocalUserInfo where telephone =:telephone")
-    LiveData<LocalUserInfo> getUserById(String telephone);
+    LiveData<LocalUserInfo> getLiveUserById(String telephone);
+
+    /**
+     * 根据id 读取用户
+     *
+     * @param telephone
+     * @return
+     */
+    @Query("select * from LocalUserInfo where telephone =:telephone")
+    LocalUserInfo getUserById(String telephone);
 
     //插入数据
     @Insert(onConflict = OnConflictStrategy.REPLACE)

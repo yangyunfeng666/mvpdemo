@@ -7,7 +7,7 @@ package com.yunsoft.mvpdemo.commponent.lifecycle.data;
  */
 
 public interface  ApiResponse<ResultType> {
-    ResultType datas();
-    String errMsg();
-    int code();
+    ResultType getBody();
+    String getErrorMsg();
+    boolean isSuccessful();
 }
