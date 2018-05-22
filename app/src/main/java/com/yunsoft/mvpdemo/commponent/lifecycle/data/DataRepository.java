@@ -51,7 +51,7 @@ public  class DataRepository  {
 
             @Override
             protected void saveCallResult(@NonNull LocalUserInfo item) {
-                KyeLogUtils.e("saveCallResult:"+item.toString());
+//                KyeLogUtils.e("saveCallResult:"+item.toString());
                 //加载网络数据成功写数据库
                 localDataSource.insert(item);
             }
