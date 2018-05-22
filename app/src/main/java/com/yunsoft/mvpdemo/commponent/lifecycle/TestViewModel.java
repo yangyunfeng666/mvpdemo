@@ -33,10 +33,10 @@ public class TestViewModel extends AndroidViewModel {
         this.usersRespository = dataRepository;
     }
 
-
+    //读取数据
     public LiveData<Resource<LocalUserInfo>> loadData() {
         if (liveData == null) {
-            liveData = usersRespository.getLoginUser("1326579778", "ab244795339868d6e9d35ed7e7de7e3b", "104.22", "12.2", "31231213233");
+            liveData = usersRespository.getLoginUser("13265797978", "ab244795339868d6e9d35ed7e7de7e3b", "104.22", "12.2", "31231213233");
         }
         return liveData;
     }

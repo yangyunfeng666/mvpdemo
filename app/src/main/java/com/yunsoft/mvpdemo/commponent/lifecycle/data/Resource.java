@@ -12,6 +12,7 @@ import static com.yunsoft.mvpdemo.commponent.lifecycle.data.Resource.Status.SUCC
  * Author: yangyunfeng
  * Date: 公元2018-5-18 16:29
  * Description:this is Resource
+ * 读取的数据状态和返回数据类
  */
 
 public class Resource<T> {

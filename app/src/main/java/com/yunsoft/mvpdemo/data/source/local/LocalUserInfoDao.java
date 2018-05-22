@@ -32,11 +32,11 @@ public interface LocalUserInfoDao {
     /**
      * 根据id 读取用户
      *
-     * @param telephone
+     * @param
      * @return
      */
-    @Query("select * from LocalUserInfo where telephone =:telephone")
-    LiveData<LocalUserInfo> getLiveUserById(String telephone);
+    @Query("select * from LocalUserInfo where userid =:userid")
+    LiveData<LocalUserInfo> getLiveUserById(int userid);
 
     /**
      * 根据id 读取用户

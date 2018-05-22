@@ -31,7 +31,7 @@ public class LocalDataSource  {
     private static LocalUserInfoDao localUserInfoDao;
 
     public LiveData<LocalUserInfo> getLoginUser(String telephone, String password, String longitude, String latitude, String JpushId) {
-       return localUserInfoDao.getLiveUserById(telephone);
+       return localUserInfoDao.getLiveUserById(84);
     }
 
     public void insert(LocalUserInfo localUserInfo) {

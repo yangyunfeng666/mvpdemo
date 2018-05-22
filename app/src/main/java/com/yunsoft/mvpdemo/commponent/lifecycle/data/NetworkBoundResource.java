@@ -10,13 +10,16 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.WorkerThread;
 
+import com.kye.basemodule.log.KyeLogUtils;
 import com.kye.basemodule.network.base.BaseResponse;
 
 
 /**
  * Author: yangyunfeng
  * Date: 公元2018-5-18 16:17
- * Description:this is AbsDataSource
+ * Description:this is NetworkBoundResource
+ * 定义
+ *
  */
 
 public abstract class NetworkBoundResource<ResultType,RequestType> {
@@ -35,6 +38,10 @@ public abstract class NetworkBoundResource<ResultType,RequestType> {
     // Called to get the cached data from the database
     @NonNull @MainThread
     protected abstract LiveData<ResultType> loadFromDb();
+
+    // Called to cover the  RequestType to ResultType
+    @NonNull @MainThread
+    protected abstract ResultType ConverRequstTyToResultType(RequestType type);
 
     // Called to create the API call.
     @NonNull @MainThread
@@ -62,6 +69,7 @@ public abstract class NetworkBoundResource<ResultType,RequestType> {
             }
         });
     }
+
     private void fetchDataFromNetwork(LiveData<ResultType> dbSource){
         LiveData<ApiResponse<BaseResponse<RequestType>>> apiResponseLiveData = createCall();
         result.addSource(dbSource,newData->result.setValue(Resource.loading(newData)));
@@ -71,11 +79,10 @@ public abstract class NetworkBoundResource<ResultType,RequestType> {
             public void onChanged(@Nullable ApiResponse<BaseResponse<RequestType>> requestTypeApiResponse) {
                 result.removeSource(apiResponseLiveData);
                 result.removeSource(dbSource);
-                if(requestTypeApiResponse.getBody().getCode()==200){
+                if(requestTypeApiResponse.getBody().getCode()==0){//如果是成功的标志返回
                     saveResultAndReInit(requestTypeApiResponse);
                 }else{
-                    onFetchFailed();
-//                    Transformations.switchMap()
+                    onFetchFailed();//失败数据返回错误信息
                     result.addSource(dbSource,newData->result.setValue(Resource.error(requestTypeApiResponse.getBody().getErrMsg(),newData)));
                 }
             }
@@ -84,12 +91,14 @@ public abstract class NetworkBoundResource<ResultType,RequestType> {
 
     @MainThread
     private void saveResultAndReInit(ApiResponse<BaseResponse<RequestType>> response) {
+        //存放在数据库中
         new AsyncTask<Void, Void, Void>() {
 
             @Override
             protected Void doInBackground(Void... voids) {
-                if(response.getBody()!=null&&response.getBody().getDatas()!=null)
-                saveCallResult(response.getBody().getDatas());
+                if(response.getBody()!=null&&response.getBody().getDatas()!=null) {
+                    saveCallResult(response.getBody().getDatas());//保存数据到数据
+                }
                 return null;
             }
 
@@ -98,8 +107,12 @@ public abstract class NetworkBoundResource<ResultType,RequestType> {
                 // we specially request a new live data,
                 // otherwise we will get immediately last cached value,
                 // which may not be updated with latest results received from network.
-                result.addSource(loadFromDb(),
-                        newData -> result.setValue(Resource.success(newData)));
+                //数据全部是从数据空
+                if(response.getBody()!=null&&response.getBody().getDatas()!=null) {
+                    result.setValue(Resource.success(ConverRequstTyToResultType(response.getBody().getDatas())));
+//                result.addSource(loadFromDb(),
+//                        newData -> result.setValue(Resource.success(newData)));
+                }
             }
         }.execute();
     }

@@ -51,19 +51,26 @@ public  class DataRepository  {
 
             @Override
             protected void saveCallResult(@NonNull LocalUserInfo item) {
+                KyeLogUtils.e("saveCallResult:"+item.toString());
                 //加载网络数据成功写数据库
                 localDataSource.insert(item);
             }
 
             @Override
             protected boolean shouldFetch(@Nullable LocalUserInfo data) {
-                return true;
+                return true;//时候需要从网络加载数据
             }
 
             @NonNull
             @Override
             protected LiveData<LocalUserInfo> loadFromDb() {
                 return localDataSource.getLoginUser(telephone,password,longitude,latitude,JpushId);
+            }
+
+            @NonNull
+            @Override
+            protected LocalUserInfo ConverRequstTyToResultType(LocalUserInfo localUserInfo) {
+                return localUserInfo;
             }
 
 
@@ -76,7 +83,7 @@ public  class DataRepository  {
                     public void run() {
                         try {
                             LiveData<ApiResponse<BaseResponse<LocalUserInfo>>> data =remoteDataSource.getLoginUser(telephone, password, longitude, latitude, JpushId);
-                            KyeLogUtils.e("data:"+data.toString());
+//                            KyeLogUtils.e("data:"+data.toString());
                             result.addSource(data, new Observer<ApiResponse<BaseResponse<LocalUserInfo>>>() {
                                 @Override
                                 public void onChanged(@Nullable ApiResponse<BaseResponse<LocalUserInfo>> localUserInfoApiResponse) {

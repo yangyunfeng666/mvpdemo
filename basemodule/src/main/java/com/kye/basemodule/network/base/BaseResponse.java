@@ -2,7 +2,7 @@ package com.kye.basemodule.network.base;
 
 /**
  * Created by yyf on 2018-04-11 12:11.
- * 定义的返回数据体
+ * 定义的返回数据体 这个类跟具体的业务逻辑判断有关，不上固定的
  */
 
 public class BaseResponse<T> {

@@ -45,27 +45,34 @@ public class TestViewDataActivity extends BaseMvpActivity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                load();
             }
         });
     }
 
     @Override
     protected void initData() {
+
+    }
+
+    public void load(){
         testViewModel.loadData().observe(this, new Observer<Resource<LocalUserInfo>>() {
             @Override
             public void onChanged(@Nullable Resource<LocalUserInfo> localUserInfoResource) {
 //                if (localUserInfoResource != null && localUserInfoResource.data != null) {
-                    if (localUserInfoResource.status ==Resource.Status.LOADING) {
-                        textView.setText("加载数据");
-                    } else if (localUserInfoResource.status==Resource.Status.SUCCEED) {
-                        textView.setText("加载数据成功");
-                        if (localUserInfoResource.data != null) {
-                            textView.setText(localUserInfoResource.data.toString());
-                        }
-                    } else if (localUserInfoResource.status==Resource.Status.ERROR) {
-                        textView.setText(localUserInfoResource.message);
+                if (localUserInfoResource.status ==Resource.Status.LOADING) {
+                    showLoadingDialog();
+                    textView.setText("加载数据");
+                } else if (localUserInfoResource.status==Resource.Status.SUCCEED) {
+                    dismissLoadingDialog();
+                    textView.setText("加载数据成功");
+                    if (localUserInfoResource.data != null) {
+                        textView.setText(localUserInfoResource.data.toString());
                     }
+                } else if (localUserInfoResource.status==Resource.Status.ERROR) {
+                    dismissLoadingDialog();
+                    textView.setText(localUserInfoResource.message);
+                }
 //                }
             }
         });
