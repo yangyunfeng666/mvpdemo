@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.kye.basemodule.glide.GlideApp;
 import com.yunsoft.mvpdemo.R;
 import com.yunsoft.mvpdemo.dagger.CarModule;
 import com.yunsoft.mvpdemo.dagger.Engine;
@@ -50,6 +51,7 @@ public class DaggerActivity extends BaseMvpActivity {
                textView.setText("A:" +mEngineA.run()+ "B:"+mEngineB.run());
             }
         });
+
     }
 
     @Override

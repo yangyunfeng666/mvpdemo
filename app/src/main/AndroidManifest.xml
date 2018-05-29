@@ -3,6 +3,9 @@
     package="com.yunsoft.mvpdemo">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
+    <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
 
     <application
         android:allowBackup="true"
@@ -39,6 +42,19 @@
         <activity android:name=".activity.ViewModelActivity"></activity>
         <activity android:name=".activity.ViewModelUpdateActivity"></activity>
         <activity android:name=".activity.TestViewDataActivity"></activity>
-    </application>
+        <activity android:name=".activity.ReactNativeActivity"></activity>
+        <activity android:name=".activity.ReactNativeActivityBak"></activity>
+        <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
+        <receiver android:name=".broadcast.MyBroadCastReciver"
+            >
+            <intent-filter android:priority="100"
+                >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED"></action>
+            </intent-filter>
+        </receiver>
 
+        <service android:name=".service.MyService">
+            
+        </service>
+    </application>
 </manifest>

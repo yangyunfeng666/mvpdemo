@@ -33,7 +33,7 @@ import com.kye.basemodule.util.DisplayUtil;
  *
  * @author sunfusheng on 2017/11/10.
  */
-public class ShapeImageView extends android.support.v7.widget.AppCompatImageView {
+public class ShapeImageView extends ImageView {
 
     private static final int DEFAULT_BORDER_COLOR = Color.GRAY;
 

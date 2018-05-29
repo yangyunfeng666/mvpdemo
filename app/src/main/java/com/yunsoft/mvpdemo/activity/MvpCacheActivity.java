@@ -18,15 +18,12 @@ import com.yunsoft.mvpdemo.mvp.BaseMvpActivity;
 
 public class MvpCacheActivity  extends BaseMvpActivity implements MvpCacheContract.View{
 
-
     private TextView textView;
     private Button button;
-
     private MvpCachePresenter mvpCachePresenter;
 
     @Override
     protected void onCreateBefore() {
-
     }
 
     @Override
@@ -45,7 +42,6 @@ public class MvpCacheActivity  extends BaseMvpActivity implements MvpCacheContra
 
     @Override
     protected void initData() {
-
     }
 
     @Override

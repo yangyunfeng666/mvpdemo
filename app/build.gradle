@@ -16,6 +16,13 @@ def KEYSTORE = new File("" + rootProject.projectDir + rootProject.ext.keystore);
 
 def JAR =  rootProject.ext.JAR
 
+def enableSeparateBuildPerCPUArchitecture = false
+
+/**
+ * Run Proguard to shrink the Java bytecode in release builds.
+ */
+def enableProguardInReleaseBuilds = false
+
 android {
     compileSdkVersion APP.compileSdkVersion
     defaultConfig {
@@ -24,6 +31,7 @@ android {
         targetSdkVersion APP.targetSdkVersion
         versionCode APP.versionCode
         versionName APP.versionName
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         //room 数据库输出的sql目录
         javaCompileOptions {
@@ -31,6 +39,17 @@ android {
                 arguments = ["room.schemaLocation":
                                      "$projectDir/schemas".toString()]
             }
+        }
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+    }
+    splits {
+        abi {
+            reset()
+            enable enableSeparateBuildPerCPUArchitecture
+            universalApk false  // If true, also generate a universal APK
+            include "armeabi-v7a", "x86"
         }
     }
     // 签名配置
@@ -124,10 +143,12 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation "com.android.support:appcompat-v7:${JAR.supportVersion}"
     implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    implementation 'com.android.support:multidex:1.0.3'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
     implementation project(':basemodule')
+    implementation project(':reactnative')
 //    // ViewModel and LiveData
     implementation "android.arch.lifecycle:extensions:$lifecycle_version"
     // alternatively - just ViewModel

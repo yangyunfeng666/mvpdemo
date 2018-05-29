@@ -1,10 +1,16 @@
 package com.yunsoft.mvpdemo.activity;
 
+import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.support.annotation.Nullable;
+import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -18,6 +24,7 @@ import com.yunsoft.mvpdemo.db.UserDao;
 import com.yunsoft.mvpdemo.db.UserListViewModel;
 import com.yunsoft.mvpdemo.mvp.BaseMvpActivity;
 import com.yunsoft.mvpdemo.persistence.sqlite.dao.User;
+import com.yunsoft.mvpdemo.service.MyService;
 
 import java.util.Date;
 import java.util.List;
@@ -46,6 +53,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button livedata_view;// livedata  例子
     private Button viewmodel_view;// viewmodel  例子
     private Button viewlivelift_view;// viewmodel+livedata+lifecycle+retrofit+okhttp  例子
+    private Button react_view;// react_view 例子
     private TextView show_txt;
     private SimplePresenter presenter;
     private Button load_btn;
@@ -68,6 +76,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         green_view = findViewById(R.id.green_view);
         lifecycle_view = findViewById(R.id.lifecycle_view);
         my_view = findViewById(R.id.my_view);
+        react_view = findViewById(R.id.react_view);
         livedata_view = findViewById(R.id.livedata_view);
         dragger_dependencise_btn = findViewById(R.id.dragger_dependencise_btn);
         dragger_subcomponent_btn = findViewById(R.id.dragger_subcomponent_btn);
@@ -214,6 +223,13 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
                 startActivity(intent);
             }
         });
+        react_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,ReactNativeActivityBak.class);
+                startActivity(intent);
+            }
+        });
 
 
         UserListViewModel userListViewModel = ViewModelProviders.of(this).get(UserListViewModel.class);
@@ -230,6 +246,30 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
                 }
             }
         });
+
+//        Intent intent = new Intent();
+//        intent.setAction("android.provider.Telephony.SMS_RECEIVED");
+//        sendBroadcast(intent);
+//
+//        sendOrderedBroadcast(intent,null,null,null, Activity.RESULT_OK,"",null);
+        //        startService(intent);
+//        Intent intent = new Intent(this, MyService.class);
+//        bindService(intent,new MyConnnection(), Context.BIND_AUTO_CREATE);
+    }
+
+
+    private MyService.MyBinder  myBinder;
+    public class MyConnnection implements ServiceConnection {
+
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder service) {
+            myBinder = (MyService.MyBinder) service;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+
+        }
     }
 
     //view 更新
@@ -248,6 +288,12 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
 
     }
 
-
-
+    @Override
+    public void onTrimMemory(int level) {
+        super.onTrimMemory(level);
+        switch (level){
+            case TRIM_MEMORY_RUNNING_LOW:
+                break;
+        }
+    }
 }

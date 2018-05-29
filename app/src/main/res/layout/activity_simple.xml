@@ -129,6 +129,13 @@
             android:text="viewmodel+livedata+lifecycle" />
 
 
+   <Button
+            android:id="@+id/react_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="reactNative" />
+
+
 
     </LinearLayout>
 
