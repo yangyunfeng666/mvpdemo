@@ -14,6 +14,13 @@ public class ReactNativeActivity extends ReactActivity implements DefaultHardwar
     @javax.annotation.Nullable
     @Override
     protected String getMainComponentName() {
+//        getReactNativeHost();
         return "test";
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 }

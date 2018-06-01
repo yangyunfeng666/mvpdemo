@@ -5,13 +5,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node node_modules/react-native/local-cli/cli.js start"
+    "start": "node node_modules/react-native/local-cli/cli.js start",
+    "bundleIos": "react-native bundle --entry-file index.ios.js --bundle-output ./bundle/ios/index.ios.jsbundle --platform ios --assets-dest ./bundle/ios --dev false",
+    "bundleAndroid": "react-native bundle --entry-file index.android.js --bundle-output ./bundle/android/index.android.bundle --platform android --assets-dest ./bundle/android --dev false"
   },
   "author": "yangyunfeng",
   "license": "ISC",
   "dependencies": {
-    "react": "16.4.0",
-    "react-native": "0.55.4"
+    "react": "16.0.0-alpha.12",
+    "react-native": "^0.48.0"
   },
   "devDependencies": {},
   "keywords": [

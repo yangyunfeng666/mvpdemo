@@ -15,6 +15,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.facebook.react.ReactActivity;
 import com.kye.basemodule.log.KyeLogUtils;
 import com.yunsoft.mvpdemo.MyApplication;
 import com.yunsoft.mvpdemo.R;
@@ -226,7 +227,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         react_view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SimpleActivity.this,ReactNativeActivityBak.class);
+                Intent intent = new Intent(SimpleActivity.this,ReactiveActivity.class);
                 startActivity(intent);
             }
         });

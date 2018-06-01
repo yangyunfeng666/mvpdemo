@@ -95,16 +95,10 @@ export default class App extends Component<Props> {
                             dasdadadaf22edd
                         </Text>
                     </Text>
-
                     <Text style={styles.bluecoclor}>
                         dsadsads
                     </Text>
-
-                    <Image source={{uri: 'https://raw.githubusercontent.com/yangyunfeng666/image/master/room.png'}}
-                           style={{width: 400, height: 400}}/>
-                    <Greening value='dsdsddd'/>
-                    <ShowText text='喂喂喂' style={styles.bluecoclor}/>
-
+                    <Image source={require('./image/images_ic_2.png')} style={{width:100,height:100}}/>
                     <InputTextView multiline={true} numberOfLines={4}
                     />
                 </View>

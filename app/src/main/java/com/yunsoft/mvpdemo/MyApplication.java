@@ -3,6 +3,7 @@ package com.yunsoft.mvpdemo;
 import android.app.Activity;
 import android.app.Application;
 import android.support.multidex.MultiDexApplication;
+import android.util.Log;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -24,12 +25,15 @@ import com.yunsoft.mvpdemo.db.DataRepository;
 import com.yunsoft.mvpdemo.persistence.perf.SharePreHelper;
 import com.yunsoft.mvpdemo.persistence.sqlite.UpdateOpenHelper;
 import com.yunsoft.mvpdemo.reactnative.ExampleReactPackage;
+import com.yunsoft.mvpdemo.reactnative.FileConstant;
 
 import org.greenrobot.greendao.database.Database;
 
+import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 
+import javax.annotation.Nullable;
 import javax.inject.Inject;
 
 import dagger.android.AndroidInjector;
@@ -41,7 +45,7 @@ import dagger.android.support.DaggerApplication;
  * Created by yyf on 2018-04-11 15:37.
  */
 
-public class MyApplication extends MultiDexApplication implements HasActivityInjector,ReactApplication {
+public class MyApplication extends Application implements HasActivityInjector ,ReactApplication{
 
     private static MyApplication mInstance;
 
@@ -50,6 +54,32 @@ public class MyApplication extends MultiDexApplication implements HasActivityInj
     private AppComponent mAppComponent;
     private ActivityComponent mActivityComponent;
     private AppExecutors mAppExecutors;
+
+    private final ReactNativeHost reactNativeHost = new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+            return BuildConfig.DEBUG;
+        }
+
+        @Override
+        protected List<ReactPackage> getPackages() {
+            return Arrays.asList(new MainReactPackage());
+        }
+
+        @Nullable
+        @Override
+        protected String getJSBundleFile() {
+            File file = new File (FileConstant.JS_BUNDLE_LOCAL_PATH);
+            if(file != null && file.exists()) {
+                Log.e("show","sdcard");
+                return FileConstant.JS_BUNDLE_LOCAL_PATH;
+            } else {
+                Log.e("show","getJSBundleFile");
+                return super.getJSBundleFile();
+            }
+        }
+    };
+
 
     //注入 DispatchingAndroidInjector 在 DaggerMyAppCommponent什么时候填入
     //管理XXXXActivityProvider
@@ -60,7 +90,7 @@ public class MyApplication extends MultiDexApplication implements HasActivityInj
     public void onCreate() {
         super.onCreate();
         mInstance = this;
-        SoLoader.init(this, /* native exopackage */ false);
+        SoLoader.init(this,  false);
         KyeLogUtils.init(this, BuildConfig.BUGLY_ID, BuildConfig.LOG_TAG);
         SharePreHelper.init(this);//shareperfence初始化
         setDataBase();
@@ -115,27 +145,18 @@ public class MyApplication extends MultiDexApplication implements HasActivityInj
     public DataRepository getRepository() {
         return DataRepository.getInstance(getDataBase());
     }
-
-
-    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
-        @Override
-        public boolean getUseDeveloperSupport() {
-            return com.yunsoft.reactnative.BuildConfig.DEBUG;
-        }
-
-        @Override
-        protected List<ReactPackage> getPackages() {
-            return Arrays.<ReactPackage>asList(
-                    new MainReactPackage()
-//                    new ExampleReactPackage()
-            );
-        }
-    };
-
-    @Override
-    public ReactNativeHost getReactNativeHost() {
-        return mReactNativeHost;
+    /**
+     *包名
+     */
+    public String getAppPackageName() {
+        return this.getPackageName();
     }
 
 
+
+
+    @Override
+    public ReactNativeHost getReactNativeHost() {
+        return reactNativeHost;
+    }
 }
