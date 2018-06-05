@@ -37,6 +37,11 @@ public class FileConstant {
     public static final String NET_ZIP_FILE_NAME = "bundle";
 
     /**
+     * 版本号与文件名称的分隔符  xxxx_index.android.bundle
+     */
+    public static final String SPLEX = "_";
+
+    /**
      * 第一次解压zip后的文件目录
      */
     public static final String JS_PATCH_LOCAL_FOLDER = Environment.getExternalStorageDirectory().toString()
@@ -48,10 +53,16 @@ public class FileConstant {
     public static final String JS_PATCH_LOCAL_PATH = JS_PATCH_LOCAL_FOLDER + File.separator + ZIP_NAME + ".zip";
 
 
+//    /**
+//     * 合并后的bundle文件保存路径
+//     */
+//    public static final String JS_BUNDLE_LOCAL_PATH = JS_PATCH_LOCAL_FOLDER + File.separator +ZIP_NAME+ File.separator  + JS_BUNDLE_LOCAL_FILE;
+
     /**
      * 合并后的bundle文件保存路径
      */
-    public static final String JS_BUNDLE_LOCAL_PATH = JS_PATCH_LOCAL_FOLDER + File.separator +ZIP_NAME+ File.separator  + JS_BUNDLE_LOCAL_FILE;
+    public static final String JS_BUNDLE_LOCAL_PATH = JS_PATCH_LOCAL_FOLDER + File.separator +ZIP_NAME+ File.separator ;
+
     /**
      * 第二次更新后的合并后的bundle保存路径
      */
@@ -68,7 +79,7 @@ public class FileConstant {
     public static final String FUTURE_JS_PATCH_LOCAL_FOLDER = JS_PATCH_LOCAL_FOLDER+ File.separator +"future";
 
     public static final String FUTURE_PAT_PATH = FUTURE_JS_PATCH_LOCAL_FOLDER+ File.separator +ZIP_NAME+ File.separator +"bundle.pat";
-
+    //jsbundle 加载的图片文件
     public static final String DRAWABLE_PATH = JS_PATCH_LOCAL_FOLDER +  File.separator  + ZIP_NAME + File.separator + "drawable-mdpi";
 
     //解压后网络图片的地址
@@ -76,7 +87,14 @@ public class FileConstant {
     /**
      * 解压后.pat文件目录
      */
-    public static final String JS_PATCH_LOCAL_FILE = JS_PATCH_LOCAL_FOLDER + File.separator +ZIP_NAME+ File.separator +FUTURE_NAME+File.separator+"bundle"+File.separator+"bundle.pat";
+    public static final String JS_PATCH_LOCAL_FILE = JS_PATCH_LOCAL_FOLDER + File.separator +ZIP_NAME+ File.separator +FUTURE_NAME+File.separator+NET_ZIP_FILE_NAME+File.separator+"bundle.pat";
+
+    /**
+     * 解压后.pat文件目录
+     */
+    public static final String ALL_UPDATE_JS_LOCAL_FILE = JS_PATCH_LOCAL_FOLDER + File.separator +ZIP_NAME+ File.separator +FUTURE_NAME+File.separator+NET_ZIP_FILE_NAME+File.separator+JS_BUNDLE_LOCAL_FILE;
+
+
     //bundle.zip 文件到解压的目录  /wan/future 文件夹  解压后文件有/wan/future/bundle/ drawable-xdpi index.bundle
     public static final String LOCAL_FOLDER = JS_PATCH_LOCAL_FOLDER + File.separator  + ZIP_NAME+File.separator+FUTURE_NAME;
 

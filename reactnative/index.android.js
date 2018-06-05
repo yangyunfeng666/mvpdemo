@@ -98,8 +98,11 @@ export default class App extends Component<Props> {
                     <Text style={styles.bluecoclor}>
                         dsadsads
                     </Text>
-                    <Image source={require('./image/images_ic_2.png')} style={{width:100,height:100}}/>
-                    <InputTextView multiline={true} numberOfLines={4}
+                    <Image source={require('./image/images_ic_1.png')} style={{width:100,height:100}}/>
+                     <Image source={require('./image/images_ic_2.png')} style={{width:100,height:100}}/>
+                    <Image source={{uri: 'https://raw.githubusercontent.com/yangyunfeng666/image/master/room.png'}}
+                            style={{width: 400, height: 400}}/>
+                     <InputTextView multiline={true} numberOfLines={4}
                     />
                 </View>
                 {/*列表数据*/}

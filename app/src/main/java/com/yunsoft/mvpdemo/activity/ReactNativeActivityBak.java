@@ -35,11 +35,13 @@ public class ReactNativeActivityBak extends AppCompatActivity implements Default
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
     private ReactInstanceManagerBuilder builder;
+    private String new_version = "";
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Toast.makeText(this, "dddd", Toast.LENGTH_SHORT).show();
+        new_version = getIntent().getStringExtra("version");
         mReactRootView = new ReactRootView(this);
         builder = ReactInstanceManager.builder()
                 .setApplication(getApplication())
@@ -47,10 +49,10 @@ public class ReactNativeActivityBak extends AppCompatActivity implements Default
                 .addPackage(new MainReactPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED);
-        File file = new File(FileConstant.JS_BUNDLE_LOCAL_PATH);
+        File file = new File(FileConstant.JS_BUNDLE_LOCAL_PATH+new_version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
         if (file != null && file.exists()) {
             Log.e("show", "load sdcard");
-            builder.setJSBundleFile(FileConstant.JS_BUNDLE_LOCAL_PATH);
+            builder.setJSBundleFile(FileConstant.JS_BUNDLE_LOCAL_PATH+new_version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
         } else {
             Log.e("show", "load assess");
             builder.setBundleAssetName("index.android.bundle");

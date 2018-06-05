@@ -39,10 +39,17 @@ public class ReactiveActivity extends AppCompatActivity {
     private static final String TAG = "ReactiveActivity";
     private Button update_btn;
     private Button into_btn;
-    private File zipfile;
     private long mDownLoadId;
     private CompleteReceiver localReceiver;
     private String downUrl = "https://raw.githubusercontent.com/yangyunfeng666/image/master/bundle.zip";
+    //是否是全量更新 就是因为如果每次都是差量更新，是2个版本的更新，如果是全量更新就是删除以前的所以文件，然后以当前的文件的jsbundly为主
+    private String now_version = "1.0.2";//新的版本号jsbunder
+    private String old_version = "1.0.1";//旧的版本号jsbunder
+    private boolean AllUpdate = false;//是否全量更新
+    private boolean backToOld = true;//版本回退到以前版本
+    private String backversion = "1.0.1";
+
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -64,6 +71,10 @@ public class ReactiveActivity extends AppCompatActivity {
             public void onClick(View v) {
 //                Intent intent = new Intent(ReactiveActivity.this,ReactNativeActivity.class);
                 Intent intent = new Intent(ReactiveActivity.this,ReactNativeActivityBak.class);
+                if(backToOld){
+                       now_version = backversion;
+                }
+                intent.putExtra("version",now_version);
                 startActivity(intent);
             }
         });
@@ -117,7 +128,7 @@ public class ReactiveActivity extends AppCompatActivity {
         public void onReceive(Context context, Intent intent) {
             long completeId = intent.getLongExtra(DownloadManager.EXTRA_DOWNLOAD_ID,-1);
             if(completeId == mDownLoadId) {
-                HotUpdate.handleZIP(getApplicationContext());
+                HotUpdate.handleZIP(getApplicationContext(),now_version,old_version,AllUpdate);
             }
         }
     }
