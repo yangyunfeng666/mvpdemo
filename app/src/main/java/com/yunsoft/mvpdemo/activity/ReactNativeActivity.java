@@ -1,7 +1,6 @@
 package com.yunsoft.mvpdemo.activity;
 
-import com.facebook.react.ReactActivity;
-import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
+import com.yunsoft.mvpdemo.reactnative.PreLoadReactActivity;
 
 /**
  * Author: yangyunfeng
@@ -9,18 +8,12 @@ import com.facebook.react.modules.core.DefaultHardwareBackBtnHandler;
  * Description:this is ReactNativeActivity
  */
 
-public class ReactNativeActivity extends ReactActivity implements DefaultHardwareBackBtnHandler {
+public class ReactNativeActivity extends PreLoadReactActivity  {
 
     @javax.annotation.Nullable
     @Override
     protected String getMainComponentName() {
-//        getReactNativeHost();
         return "test";
     }
 
-    @Override
-    protected void onDestroy() {
-        super.onDestroy();
-
-    }
 }

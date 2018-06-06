@@ -96,14 +96,14 @@ export default class App extends Component<Props> {
                         </Text>
                     </Text>
                     <Text style={styles.bluecoclor}>
-                        dsadsads
+                        增量更新1.0.3 新增了网络图片加载 是以1.0.1版本为新增，请先切到1.0.1版本然后
                     </Text>
-                    <Image source={require('./image/images_ic_1.png')} style={{width:100,height:100}}/>
-                     <Image source={require('./image/images_ic_2.png')} style={{width:100,height:100}}/>
+                    <Image source={require('./assets/images_ic_1.png')} style={{width:100,height:100}}/>
+                    <Image source={require('./assets/hybrid_4.png')} style={{width:200,height:120}}/>
                     <Image source={{uri: 'https://raw.githubusercontent.com/yangyunfeng666/image/master/room.png'}}
-                            style={{width: 400, height: 400}}/>
-                     <InputTextView multiline={true} numberOfLines={4}
-                    />
+                                               style={{width: 400, height: 400}}/>
+                    <InputTextView multiline={true} numberOfLines={4}/>
+
                 </View>
                 {/*列表数据*/}
                 <FlatList style={{flex:4}}

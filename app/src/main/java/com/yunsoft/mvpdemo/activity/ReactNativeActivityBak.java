@@ -22,8 +22,6 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
-import static com.yunsoft.mvpdemo.reactnative.FileConstant.JS_BUNDLE_LOCAL_PATH;
-
 /**
  * Author: yangyunfeng
  * Date: 公元2018-5-29 16:47
@@ -40,7 +38,6 @@ public class ReactNativeActivityBak extends AppCompatActivity implements Default
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Toast.makeText(this, "dddd", Toast.LENGTH_SHORT).show();
         new_version = getIntent().getStringExtra("version");
         mReactRootView = new ReactRootView(this);
         builder = ReactInstanceManager.builder()
@@ -49,6 +46,7 @@ public class ReactNativeActivityBak extends AppCompatActivity implements Default
                 .addPackage(new MainReactPackage())
                 .setUseDeveloperSupport(BuildConfig.DEBUG)
                 .setInitialLifecycleState(LifecycleState.RESUMED);
+
         File file = new File(FileConstant.JS_BUNDLE_LOCAL_PATH+new_version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
         if (file != null && file.exists()) {
             Log.e("show", "load sdcard");
@@ -57,10 +55,13 @@ public class ReactNativeActivityBak extends AppCompatActivity implements Default
             Log.e("show", "load assess");
             builder.setBundleAssetName("index.android.bundle");
         }
+
         mReactInstanceManager = builder.build();
         mReactRootView.startReactApplication(mReactInstanceManager, "test", null);
         setContentView(mReactRootView);
+
     }
+
 
     /**
      * 反射替换jsbunder

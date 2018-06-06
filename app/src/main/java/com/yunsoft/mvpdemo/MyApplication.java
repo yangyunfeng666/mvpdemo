@@ -2,7 +2,6 @@ package com.yunsoft.mvpdemo;
 
 import android.app.Activity;
 import android.app.Application;
-import android.support.multidex.MultiDexApplication;
 import android.util.Log;
 
 import com.facebook.react.ReactApplication;
@@ -12,6 +11,8 @@ import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.kye.basemodule.log.KyeLogUtils;
 import com.yunsoft.mvpdemo.dagger.ActivityComponent;
+import com.yunsoft.mvpdemo.dagger.AppComponent;
+import com.yunsoft.mvpdemo.dagger.AppModule;
 import com.yunsoft.mvpdemo.dagger.DaggerActivityComponent;
 import com.yunsoft.mvpdemo.dagger.DaggerAppComponent;
 import com.yunsoft.mvpdemo.dagger.DaggerMyAppCommponent;
@@ -19,12 +20,9 @@ import com.yunsoft.mvpdemo.data.AppExecutors;
 import com.yunsoft.mvpdemo.db.AppDatabase;
 import com.yunsoft.mvpdemo.db.DaoMaster;
 import com.yunsoft.mvpdemo.db.DaoSession;
-import com.yunsoft.mvpdemo.dagger.AppComponent;
-import com.yunsoft.mvpdemo.dagger.AppModule;
 import com.yunsoft.mvpdemo.db.DataRepository;
 import com.yunsoft.mvpdemo.persistence.perf.SharePreHelper;
 import com.yunsoft.mvpdemo.persistence.sqlite.UpdateOpenHelper;
-import com.yunsoft.mvpdemo.reactnative.ExampleReactPackage;
 import com.yunsoft.mvpdemo.reactnative.FileConstant;
 
 import org.greenrobot.greendao.database.Database;
@@ -39,13 +37,12 @@ import javax.inject.Inject;
 import dagger.android.AndroidInjector;
 import dagger.android.DispatchingAndroidInjector;
 import dagger.android.HasActivityInjector;
-import dagger.android.support.DaggerApplication;
 
 /**
  * Created by yyf on 2018-04-11 15:37.
  */
 
-public class MyApplication extends Application implements HasActivityInjector ,ReactApplication{
+public class MyApplication extends Application implements HasActivityInjector ,ReactApplication {
 
     private static MyApplication mInstance;
 
@@ -55,36 +52,20 @@ public class MyApplication extends Application implements HasActivityInjector ,R
     private ActivityComponent mActivityComponent;
     private AppExecutors mAppExecutors;
 
-    private final ReactNativeHost reactNativeHost = new ReactNativeHost(this) {
-        @Override
-        public boolean getUseDeveloperSupport() {
-            return BuildConfig.DEBUG;
-        }
-
-        @Override
-        protected List<ReactPackage> getPackages() {
-            return Arrays.asList(new MainReactPackage());
-        }
-
-        @Nullable
-        @Override
-        protected String getJSBundleFile() {
-            File file = new File (FileConstant.JS_BUNDLE_LOCAL_PATH);
-            if(file != null && file.exists()) {
-                Log.e("show","sdcard");
-                return FileConstant.JS_BUNDLE_LOCAL_PATH;
-            } else {
-                Log.e("show","getJSBundleFile");
-                return super.getJSBundleFile();
-            }
-        }
-    };
-
 
     //注入 DispatchingAndroidInjector 在 DaggerMyAppCommponent什么时候填入
     //管理XXXXActivityProvider
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
+
+    private String version = "";
+
+
+
+
+    public void setVersion(String version) {
+        this.version = version;
+    }
 
     @Override
     public void onCreate() {
@@ -152,11 +133,34 @@ public class MyApplication extends Application implements HasActivityInjector ,R
         return this.getPackageName();
     }
 
-
-
+//    private ReactNativeHost ReactNativeHost =
 
     @Override
     public ReactNativeHost getReactNativeHost() {
-        return reactNativeHost;
+        return  new ReactNativeHost(this) {
+            @Override
+            public boolean getUseDeveloperSupport() {
+                return BuildConfig.DEBUG;
+            }
+
+            @Override
+            protected List<ReactPackage> getPackages() {
+                return Arrays.asList(new MainReactPackage());
+            }
+
+            @Nullable
+            @Override
+            protected String getJSBundleFile() {
+                if("".equals(version)) return super.getJSBundleFile();
+                File file = new File (FileConstant.JS_BUNDLE_LOCAL_PATH+version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
+                if(file != null && file.exists()) {
+                    Log.e("showApplication","sdcard");
+                    return FileConstant.JS_BUNDLE_LOCAL_PATH+version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE;
+                } else {
+                    Log.e("showApplication","getJSBundleFile");
+                    return super.getJSBundleFile();
+                }
+            }
+        };
     }
 }

@@ -1,6 +1,8 @@
 package com.yunsoft.mvpdemo.reactnative.hotupdate;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 
 import com.yunsoft.mvpdemo.reactnative.FileConstant;
@@ -78,14 +80,14 @@ public class HotUpdate {
         }
     }
 
-    public static void handleZIP(final Context context,String newVersion,String olderVersion,boolean allUpdate) {
+    public static void handleZIP(final Context context, String newVersion, String olderVersion, boolean allUpdate, Handler handler) {
 
         // 开启单独线程，解压，合并。
         new Thread(new Runnable() {
             @Override
             public void run() {
                 if (allUpdate) {//如果是全量更新
-                    ACache.get(context).put(FileConstant.FIRST_UPDATE,true);
+//                    ACache.get(context).put(FileConstant.FIRST_UPDATE,true);
                     // 解压到根目录
                     FileUtils.decompression(FileConstant.LOCAL_FOLDER);
                     mergeAllUpdate(newVersion);
@@ -116,6 +118,13 @@ public class HotUpdate {
                 // 删除ZIP压缩包
                 FileUtils.traversalFile(FileConstant.LOCAL_FOLDER);
                 FileUtils.deleteFile(FileConstant.JS_PATCH_LOCAL_PATH);
+
+//                now_version = "1.0.2";
+                //修改Application里面的值
+                Message message = new Message();
+                message.what = 1001;
+                message.obj = newVersion;
+                handler.sendMessage(message);
             }
         }).start();
     }
@@ -177,6 +186,11 @@ public class HotUpdate {
         //4 删除原来的jsbundle文件，然后把临时合并文件拷贝过来
 //        FileUtils.deleteFile(FileConstant.JS_BUNDLE_LOCAL_PATH);
         //5 拷贝合并jsbundle文件到目的文件
+        //如果有以前的文件删除
+        File oldFile = new File(FileConstant.JS_BUNDLE_LOCAL_PATH+newVersion+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
+        if(oldFile!=null&&!oldFile.exists()){
+            oldFile.delete();
+        }
         FileUtils.copyFile(FileConstant.ALL_UPDATE_JS_LOCAL_FILE,FileConstant.JS_BUNDLE_LOCAL_PATH+newVersion+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
         //6 拷贝图片文件到
         File file = new File(FileConstant.FUTURE_DRAWABLE_PATH);
