@@ -29,18 +29,16 @@ import com.yunsoft.mvpdemo.MyApplication;
 import com.yunsoft.mvpdemo.R;
 import com.yunsoft.mvpdemo.reactnative.DrawableModel;
 import com.yunsoft.mvpdemo.reactnative.FileConstant;
+import com.yunsoft.mvpdemo.reactnative.MutilDownHelper;
 import com.yunsoft.mvpdemo.reactnative.ReactNativePreLoader;
 import com.yunsoft.mvpdemo.reactnative.UpdateModel;
+import com.yunsoft.mvpdemo.reactnative.UpdateUtil;
 import com.yunsoft.mvpdemo.reactnative.hotupdate.HotUpdate;
 
 import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
 import java.lang.ref.SoftReference;
-import java.lang.reflect.Field;
-import java.util.ArrayList;
 import java.util.List;
+
 
 /**
  * Author: yangyunfeng
@@ -55,8 +53,8 @@ public class ReactiveActivity extends AppCompatActivity {
     private Button refresh_btn;
     private Button back_btn;
     private Button old_version_update_btn;
-    private long mDownLoadId;
     private CompleteReceiver localReceiver;
+    public static final int DOWNLOAD_FINISH = 10202;
     //全量更新
     private String downUrl = "https://raw.githubusercontent.com/yangyunfeng666/image/master/bundle.zip";
     //增量更新
@@ -71,8 +69,9 @@ public class ReactiveActivity extends AppCompatActivity {
     private boolean AllUpdate = false;//是否全量更新
     private boolean backToOld = false;//版本回退到以前版本
 
-    private UpdateModel updateModel;//模拟网络读取数据
-    private static final int UPDATE = 1001;
+    private UpdateModel updateModel;//模拟网络更新得到的model对象
+
+    private  int mDownLoadId;
 
     private class MyHander extends Handler {
         SoftReference<ReactiveActivity> mActivity;
@@ -85,15 +84,20 @@ public class ReactiveActivity extends AppCompatActivity {
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
             if (mActivity.get() != null && !mActivity.get().isFinishing()) {
-                switch (msg.what = UPDATE) {
-                    case 1001:
-                        Toast.makeText(mActivity.get(),"更新完成",Toast.LENGTH_SHORT).show();
+                switch (msg.what) {
+                    case HotUpdate.UNZIP_SUCCESS:
+                        Toast.makeText(mActivity.get(), "更新完成", Toast.LENGTH_SHORT).show();
                         String version = (String) msg.obj;
-                        Log.e("show", "version:" + version);
+                        //手动注册组件
                         ((MyApplication) mActivity.get().getApplication()).setVersion(version); //设置版本
                         ReactNativePreLoader.preLoad(ReactiveActivity.this, "test");//重新加载数据
                         SharedPreferences updateShare = getSharedPreferences("update", Context.MODE_PRIVATE);
                         updateShare.edit().putString("reactive_version", version).apply();
+                        break;
+                    case DOWNLOAD_FINISH://解压处理合并处理
+                        Log.e("show", "version:" + "解压");
+                        HotUpdate.handleZIP(getApplicationContext(), mActivity.get().now_version, mActivity.get().old_version, mActivity.get().AllUpdate, mActivity.get().handler);
+                        break;
                 }
             }
         }
@@ -118,7 +122,7 @@ public class ReactiveActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //全量更新
                 updateModel = new UpdateModel("1.0.2", "", true, false);
-                update(updateModel,downUrl);
+                update(updateModel, downUrl);
             }
         });
 
@@ -127,15 +131,16 @@ public class ReactiveActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //回退
                 updateModel = new UpdateModel("1.0.1", "", false, true);
-                update(updateModel,"");
+                update(updateModel, "");
             }
         });
+
         old_version_update_btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //增量更新 以旧版本更新
                 updateModel = new UpdateModel("1.0.3", "1.0.1", false, false);
-                update(updateModel,newUpdateUrl);
+                update(updateModel, newUpdateUrl);
             }
         });
 
@@ -144,7 +149,7 @@ public class ReactiveActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //增量更新
                 updateModel = new UpdateModel("1.0.1", "1.0.0", false, false);
-                update(updateModel,addUpdate);
+                update(updateModel, addUpdate);
             }
         });
 
@@ -163,23 +168,26 @@ public class ReactiveActivity extends AppCompatActivity {
                 startActivityForResult(intent, 1002);
             }
         }
+
         //写文件权限
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1001);
         }
-        noticeLocalVersion();
+        registLocalVersion();
     }
 
-    public void noticeLocalVersion() {
+    /**
+     * 注册本地版本
+     */
+    public void registLocalVersion() {
         SharedPreferences updateShare = getSharedPreferences("update", Context.MODE_PRIVATE);
         String version = updateShare.getString("reactive_version", "");
-        Toast.makeText(this,"init version"+version,Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "init version" + version, Toast.LENGTH_SHORT).show();
         ((MyApplication) getApplication().getApplicationContext()).setVersion(version); //设置版本
         ReactNativePreLoader.preLoad(ReactiveActivity.this, "test");//重新加载数据
     }
 
-    public void update(UpdateModel updateModel,String downUrl) {
-
+    public void update(UpdateModel updateModel, String downUrl) {
         now_version = updateModel.getNow_version();
         old_version = updateModel.getOld_version();
         backToOld = updateModel.isBackToOld();
@@ -190,80 +198,43 @@ public class ReactiveActivity extends AppCompatActivity {
             ((MyApplication) getApplication().getApplicationContext()).setVersion(now_version); //设置版本
             ReactNativePreLoader.preLoad(ReactiveActivity.this, "test");//重新加载数据
         } else {
-            Toast.makeText(this,"真正更新，请稍后...",Toast.LENGTH_SHORT).show();
-            requstPermission(downUrl); //下载更新好了，更新版本
+            Toast.makeText(this, "真正更新，请稍后...", Toast.LENGTH_SHORT).show();
+            requstPermission(downUrl,now_version); //下载更新好了，更新版本
         }
     }
 
-    public void saveBitMapToSdcard(Bitmap bitmap, String dir, String path, Bitmap.CompressFormat compressFormat) {
-        File file = new File(path);
-        File dirFile = new File(dir);
-        if (!dirFile.exists()) {
-            dirFile.mkdirs();
-        }
-        if (file != null && file.exists()) {
-            file.delete();
-        }
-        try {
-            FileOutputStream fileOutputStream = new FileOutputStream(file);
-            bitmap.compress(compressFormat, 100, fileOutputStream);
-            try {
-                fileOutputStream.close();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-
-    /**
-     * 获取图片名称获取图片的资源id的方法
-     *
-     * @param
-     * @return
-     */
-    public ArrayList<DrawableModel> getResourceByReflect() {
-        Class drawable = R.drawable.class;
-        ArrayList<DrawableModel> arrayList = new ArrayList();
-        Field[] fields = drawable.getDeclaredFields();
-        for (Field field : fields) {
-            if (field.getName().startsWith("assets")) {
-                int r_id;
-                try {
-                    r_id = field.getInt(field.getName());
-                    DrawableModel model = new DrawableModel(r_id, field.getName());
-                    arrayList.add(model);
-                } catch (Exception e) {
-                    Log.e("ERROR", "PICTURE NOT　FOUND！");
-                }
-            }
-        }
-        return arrayList;
-    }
-
-    public void requstPermission(String RemoteUrl) {
+    public void requstPermission(String RemoteUrl,String version) {
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE}, 1001);
         } else {
-            downLoadBundle(RemoteUrl);
+            downLoadBundle(RemoteUrl,version);
         }
     }
 
-
-
-    private void downLoadBundle(String RemoteUrl) {
-        registeReceiver();
+    private void downLoadBundle(String RemoteUrl,String now_version) {
+//        registeReceiver();
         // 1.下载前检查SD卡是否存在更新包文件夹
-        HotUpdate.checkPackage(getApplicationContext(), FileConstant.JS_BUNDLE_LOCAL_PATH);
-        // 2.下载
-        DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
-        DownloadManager.Request request = new DownloadManager
-                .Request(Uri.parse(RemoteUrl));
-        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
-        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
-        request.setDestinationUri(Uri.parse("file://" + FileConstant.JS_PATCH_LOCAL_PATH));
-        mDownLoadId = downloadManager.enqueue(request);
+//        HotUpdate.checkPackage(getApplicationContext(), FileConstant.JS_BUNDLE_LOCAL_PATH);
+//        // 2.下载
+//        DownloadManager downloadManager = (DownloadManager) getSystemService(Context.DOWNLOAD_SERVICE);
+//        DownloadManager.Request request = new DownloadManager
+//                .Request(Uri.parse(RemoteUrl));
+//        request.setNotificationVisibility(DownloadManager.Request.VISIBILITY_HIDDEN);
+//        request.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_MOBILE | DownloadManager.Request.NETWORK_WIFI);
+//        request.setDestinationUri(Uri.parse("file://" + FileConstant.JS_PATCH_LOCAL_PATH));
+//        mDownLoadId = downloadManager.enqueue(request);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                MutilDownHelper downHelper =    new  MutilDownHelper();
+                int result = downHelper.load(RemoteUrl, FileConstant.JS_PATCH_LOCAL_PATH, Runtime.getRuntime().availableProcessors()+1,now_version);
+               if(result==1){
+                   handler.sendEmptyMessage(DOWNLOAD_FINISH);
+               }else{
+                   Log.e("show","下载失败");
+               }
+            }
+        }).start();
     }
 
 
@@ -277,16 +248,15 @@ public class ReactiveActivity extends AppCompatActivity {
                     SharedPreferences updateShare = getSharedPreferences("update", Context.MODE_PRIVATE);
                     String update = updateShare.getString("firstUpdate", "0");
                     if (update.equals("0")) {
-                        List<DrawableModel> models = getResourceByReflect();
-                        Log.e("show", "node_modes" + models.size() + "个图片");
+                        //assets 是根据你本地文件在到包成react-native
+                        List<DrawableModel> models = UpdateUtil.getResourceByReflect("assets");
                         new Thread(new Runnable() {
                             @Override
                             public void run() {
                                 for (DrawableModel model : models) {
-                                    Log.e("show", "id:" + model.getId() + "name:" + model.getName());
                                     Bitmap bitmap = BitmapFactory.decodeResource(getResources(), model.getId());
                                     if (bitmap != null) {
-                                        saveBitMapToSdcard(bitmap, FileConstant.DRAWABLE_PATH, FileConstant.DRAWABLE_PATH + File.separator + model.getName() + ".png", Bitmap.CompressFormat.PNG);
+                                        UpdateUtil.saveBitMapToSdcard(bitmap, FileConstant.DRAWABLE_PATH, FileConstant.DRAWABLE_PATH + File.separator + model.getName() + ".png", Bitmap.CompressFormat.PNG);
                                     }
                                 }
                             }
@@ -296,12 +266,12 @@ public class ReactiveActivity extends AppCompatActivity {
                 }
                 break;
             case 1002:
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                        if (!Settings.canDrawOverlays(this)) {
-                            // SYSTEM_ALERT_WINDOW permission not granted...
-                            Toast.makeText(this,"需要授权",Toast.LENGTH_SHORT).show();
-                        }
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    if (!Settings.canDrawOverlays(this)) {
+                        // SYSTEM_ALERT_WINDOW permission not granted...
+                        Toast.makeText(this, "需要授权", Toast.LENGTH_SHORT).show();
                     }
+                }
                 break;
         }
     }
@@ -329,7 +299,7 @@ public class ReactiveActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if(localReceiver!=null) {
+        if (localReceiver != null) {
             unregisterReceiver(localReceiver);
         }
     }

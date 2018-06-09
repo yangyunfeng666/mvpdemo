@@ -2,7 +2,6 @@ package com.yunsoft.mvpdemo;
 
 import android.app.Activity;
 import android.app.Application;
-import android.util.Log;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -58,9 +57,8 @@ public class MyApplication extends Application implements HasActivityInjector ,R
     @Inject
     DispatchingAndroidInjector<Activity> dispatchingActivityInjector;
 
+    //新版本的版本号
     private String version = "";
-
-
 
 
     public void setVersion(String version) {
@@ -152,12 +150,11 @@ public class MyApplication extends Application implements HasActivityInjector ,R
             @Override
             protected String getJSBundleFile() {
                 if("".equals(version)) return super.getJSBundleFile();
+                //判断新版本的bundle文件时候存在
                 File file = new File (FileConstant.JS_BUNDLE_LOCAL_PATH+version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
                 if(file != null && file.exists()) {
-                    Log.e("showApplication","sdcard");
                     return FileConstant.JS_BUNDLE_LOCAL_PATH+version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE;
                 } else {
-                    Log.e("showApplication","getJSBundleFile");
                     return super.getJSBundleFile();
                 }
             }

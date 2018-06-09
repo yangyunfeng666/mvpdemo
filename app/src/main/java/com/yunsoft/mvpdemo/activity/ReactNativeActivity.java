@@ -15,5 +15,4 @@ public class ReactNativeActivity extends PreLoadReactActivity  {
     protected String getMainComponentName() {
         return "test";
     }
-
 }

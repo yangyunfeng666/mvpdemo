@@ -3,15 +3,12 @@ package com.yunsoft.mvpdemo.reactnative.hotupdate;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.yunsoft.mvpdemo.reactnative.FileConstant;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.Writer;
 import java.util.LinkedList;
 
@@ -21,64 +18,7 @@ import java.util.LinkedList;
  */
 public class HotUpdate {
 
-    private static final String TAG ="show" ;
-
-    public static void checkVersion() {
-        // 检查版本是否需要更新
-    }
-
-    public static void checkPackage(Context context,String filePath) {
-        // 1.下载前检查SD卡是否存在更新包文件夹,FIRST_UPDATE来标识是否为第一次下发更新包
-        File bundleFile = new File(filePath);
-        if(bundleFile != null && bundleFile.exists()) {
-            ACache.get(context).put(FileConstant.FIRST_UPDATE,false);
-        } else {
-            ACache.get(context).put(FileConstant.FIRST_UPDATE,true);
-        }
-    }
-
-    /**
-     * 拷贝drawable目录下图片到指定jsbundle加载的图片目录下
-     * @param context
-     * @param PicID
-     */
-    public void copyImage2Data(Context context,Integer PicID,String LogoFilePath)
-    {
-        Log.d(TAG, "mythou copyImage2Data----->Enter PicID="+PicID);
-        try
-        {
-            //计算图片存放全路径
-            File dir = new File(FileConstant.DRAWABLE_PATH);
-            //如果文件夹不存在，创建一个（只能在应用包下面的目录，其他目录需要申请权限 OWL）
-            if(!dir.exists()){
-                Log.d(TAG, "mythou copyImage2Data----->dir not exist");
-                boolean result = dir.mkdirs();
-            }
-            // 获得封装  文件的InputStream对象
-            InputStream is = context.getResources().openRawResource(PicID);
-
-            Log.d(TAG, "copyImage2Data----->InputStream open");
-
-            FileOutputStream fos = new FileOutputStream(LogoFilePath);
-
-            byte[] buffer = new byte[1024];
-            System.out.println("3");
-            int count = 0;
-
-            // 开始复制Logo图片文件
-            while((count=is.read(buffer)) > 0)
-            {
-                fos.write(buffer, 0, count);
-                System.out.println("4");
-            }
-            fos.close();
-            is.close();
-
-        } catch(Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
+    public final static int UNZIP_SUCCESS = 10001;
 
     public static void handleZIP(final Context context, String newVersion, String olderVersion, boolean allUpdate, Handler handler) {
 
@@ -100,7 +40,7 @@ public class HotUpdate {
                     }
 //                    boolean result = (Boolean) ACache.get(context).getAsObject(FileConstant.FIRST_UPDATE);
                     if (result) {//如果是第一次更新
-                        Log.e("show", "result" + result);
+//                        Log.e("show", "result" + result);
                         // 解压到根目录
                         FileUtils.decompression(FileConstant.LOCAL_FOLDER);
                         //com.yunsoft.mvpdemp/bundle.pat drawable-mdpi
@@ -108,7 +48,7 @@ public class HotUpdate {
                         mergePatAndAsset(context,newVersion);
                         //判断是否有图片
                     } else { //如果有文件 那么
-                        Log.e("show", "result" + result);
+//                        Log.e("show", "result" + result);
                         // 解压到future目录
                         FileUtils.decompression(FileConstant.LOCAL_FOLDER);
                         // 合并
@@ -118,11 +58,8 @@ public class HotUpdate {
                 // 删除ZIP压缩包
                 FileUtils.traversalFile(FileConstant.LOCAL_FOLDER);
                 FileUtils.deleteFile(FileConstant.JS_PATCH_LOCAL_PATH);
-
-//                now_version = "1.0.2";
-                //修改Application里面的值
                 Message message = new Message();
-                message.what = 1001;
+                message.what = UNZIP_SUCCESS;
                 message.obj = newVersion;
                 handler.sendMessage(message);
             }
@@ -140,14 +77,10 @@ public class HotUpdate {
         // 3.合并 /wan/xxxx_index.android.bundle 文件
         merge(patcheStr,assetsBundle,FileConstant.JS_BUNDLE_LOCAL_PATH+newVersion+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
         File file = new File(FileConstant.FUTURE_DRAWABLE_PATH);
-        Log.e("show","FUTURE_DRAWABLE_PATH:"+FileConstant.FUTURE_DRAWABLE_PATH);
         //如果有网络图片
         if(file!=null&&file.exists()) {
             //拷贝图片文件
-            Log.e("show","haveImage");
             FileUtils.copyPatchImgs(FileConstant.FUTURE_DRAWABLE_PATH, FileConstant.DRAWABLE_PATH);
-        }else{
-            Log.e("show","not haveImage");
         }
     }
 
@@ -167,14 +100,10 @@ public class HotUpdate {
        // FileUtils.copyFile(FileConstant.JS_BUNDLE_FUTURE_LOCAL_PATH,FileConstant.JS_BUNDLE_LOCAL_PATH);
         //6.拷贝图片文件到
         File file = new File(FileConstant.FUTURE_DRAWABLE_PATH);
-        Log.e("show","FUTURE_DRAWABLE_PATH:"+FileConstant.FUTURE_DRAWABLE_PATH);
         //如果有网络图片
         if(file!=null&&file.exists()) {
             //拷贝图片文件
-            Log.e("show","haveImage");
             FileUtils.copyPatchImgs(FileConstant.FUTURE_DRAWABLE_PATH, FileConstant.DRAWABLE_PATH);
-        }else{
-            Log.e("show"," not haveImage");
         }
     }
 
@@ -194,14 +123,14 @@ public class HotUpdate {
         FileUtils.copyFile(FileConstant.ALL_UPDATE_JS_LOCAL_FILE,FileConstant.JS_BUNDLE_LOCAL_PATH+newVersion+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
         //6 拷贝图片文件到
         File file = new File(FileConstant.FUTURE_DRAWABLE_PATH);
-        Log.e("show","FUTURE_DRAWABLE_PATH:"+FileConstant.FUTURE_DRAWABLE_PATH);
+//        Log.e("show","FUTURE_DRAWABLE_PATH:"+FileConstant.FUTURE_DRAWABLE_PATH);
         //如果有网络图片
         if(file!=null&&file.exists()) {
             //拷贝图片文件
-            Log.e("show","haveImage");
+//            Log.e("show","haveImage");
             FileUtils.copyPatchImgs(FileConstant.FUTURE_DRAWABLE_PATH, FileConstant.DRAWABLE_PATH);
         }else{
-            Log.e("show"," not haveImage");
+//            Log.e("show"," not haveImage");
         }
     }
 
