@@ -1,11 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.yunsoft.mvpdemo">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
     <uses-permission android:name="android.permission.RECEIVE_SMS"></uses-permission>
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.SYSTEM_OVERLAY_WINDOW" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.READ_LOGS"
+        tools:ignore="ProtectedPermissions" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
 
     <application
@@ -16,14 +22,12 @@
         android:supportsRtl="true"
         android:name=".MyApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.ReactiveActivity">
+        <activity android:name=".activity.SimpleActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity android:name=".activity.GlideActivity"></activity>
         <activity android:name=".activity.HyBridActivity"></activity>
         <activity android:name=".activity.JsBridActivity"></activity>
@@ -44,8 +48,9 @@
         <activity android:name=".activity.ViewModelUpdateActivity"></activity>
         <activity android:name=".activity.TestViewDataActivity"></activity>
         <activity android:name=".activity.ReactNativeActivity"></activity>
-        <activity android:name=".activity.ReactNativeActivityBak"></activity>
-        <!--<activity android:name=".activity.ReactiveActivity"></activity>-->
+        <!--<activity android:name=".activity.ReactNativeActivityBak"></activity>-->
+        <activity android:name=".activity.TinkerHotFixActivity"></activity>
+        <activity android:name=".activity.ReactiveActivity"></activity>
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
        
         <receiver android:name=".broadcast.MyBroadCastReciver"
@@ -57,7 +62,20 @@
         </receiver>
 
         <service android:name=".service.MyService">
-            
         </service>
+
+        <activity
+            android:name="com.tencent.bugly.beta.ui.BetaActivity"
+            android:theme="@android:style/Theme.Translucent" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.yunsoft.mvpdemo.fileProvider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths"/>
+        </provider>
     </application>
 </manifest>

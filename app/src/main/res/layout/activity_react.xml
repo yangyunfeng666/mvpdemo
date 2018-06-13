@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
     >
+
 
     <Button
         android:id="@+id/refresh_btn"
@@ -13,14 +16,14 @@
         />
 
     <Button
-        android:id="@+id/old_version_update_btn"
+        android:id="@+id/oldVersionUpdate_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="以1.0.1为旧版本增量更新到1.0.3"
         />
 
     <Button
-        android:id="@+id/update_btn"
+        android:id="@+id/allUpdate_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="全量更新1.0.2版本"

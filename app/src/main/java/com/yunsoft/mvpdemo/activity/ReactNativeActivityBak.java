@@ -1,3 +1,4 @@
+/*
 package com.yunsoft.mvpdemo.activity;
 
 import android.os.Bundle;
@@ -22,11 +23,13 @@ import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 
+*/
 /**
  * Author: yangyunfeng
  * Date: 公元2018-5-29 16:47
  * Description:this is ReactNativeActivity
- */
+ *//*
+
 public class ReactNativeActivityBak extends AppCompatActivity implements DefaultHardwareBackBtnHandler {
 
     private static final String TAG = "ReactNativeActivityBak";
@@ -63,9 +66,11 @@ public class ReactNativeActivityBak extends AppCompatActivity implements Default
     }
 
 
-    /**
+    */
+/**
      * 反射替换jsbunder
-     */
+     *//*
+
     private void onJSBundleLoadedFromServer() {
         File file = new File(FileConstant.JS_BUNDLE_LOCAL_PATH);
         if (file == null || !file.exists()) {
@@ -154,3 +159,4 @@ public class ReactNativeActivityBak extends AppCompatActivity implements Default
     }
 
 }
+*/

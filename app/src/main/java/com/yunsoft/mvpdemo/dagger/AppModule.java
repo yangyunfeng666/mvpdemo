@@ -4,20 +4,12 @@ import android.app.Application;
 import android.content.Context;
 import android.content.SharedPreferences;
 
-import com.google.gson.Gson;
-import com.kye.basemodule.network.RetrofitSource;
 import com.yunsoft.mvpdemo.MyApplication;
 
-import java.util.concurrent.TimeUnit;
-
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
-import okhttp3.Interceptor;
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 
 /**
  * Author: yangyunfeng
@@ -52,6 +44,5 @@ public class AppModule {
     SharedPreferences ProvideSharedPreferences() {
         return mApplication.getSharedPreferences("shareperf",Context.MODE_PRIVATE);
     }
-
 
 }

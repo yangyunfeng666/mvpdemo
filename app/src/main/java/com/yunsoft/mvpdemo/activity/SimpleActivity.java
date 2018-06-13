@@ -1,33 +1,25 @@
 package com.yunsoft.mvpdemo.activity;
 
-import android.app.Activity;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.SparseArray;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.facebook.react.ReactActivity;
 import com.kye.basemodule.log.KyeLogUtils;
-import com.yunsoft.mvpdemo.MyApplication;
 import com.yunsoft.mvpdemo.R;
 import com.yunsoft.mvpdemo.data.LocalUserInfo;
 import com.yunsoft.mvpdemo.db.LocalUser;
-import com.yunsoft.mvpdemo.db.UserDao;
 import com.yunsoft.mvpdemo.db.UserListViewModel;
 import com.yunsoft.mvpdemo.mvp.BaseMvpActivity;
-import com.yunsoft.mvpdemo.persistence.sqlite.dao.User;
 import com.yunsoft.mvpdemo.service.MyService;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -55,6 +47,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button viewmodel_view;// viewmodel  例子
     private Button viewlivelift_view;// viewmodel+livedata+lifecycle+retrofit+okhttp  例子
     private Button react_view;// react_view 例子
+    private Button tinker_view;// tinker热修复 例子
     private TextView show_txt;
     private SimplePresenter presenter;
     private Button load_btn;
@@ -86,6 +79,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         viewmodel_view = findViewById(R.id.viewmodel_view);
         viewlivelift_view = findViewById(R.id.viewlivelift_view);
         show_txt = findViewById(R.id.show_txt);
+        tinker_view = findViewById(R.id.tinker_view);
        //presenter 对象声明
         presenter = new SimplePresenter(this);
         load_btn.setOnClickListener(new View.OnClickListener() {
@@ -232,6 +226,13 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
             }
         });
 
+        tinker_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,TinkerHotFixActivity.class);
+                startActivity(intent);
+            }
+        });
 
         UserListViewModel userListViewModel = ViewModelProviders.of(this).get(UserListViewModel.class);
 

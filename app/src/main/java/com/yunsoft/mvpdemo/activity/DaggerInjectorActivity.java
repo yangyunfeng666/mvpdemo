@@ -2,24 +2,15 @@ package com.yunsoft.mvpdemo.activity;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
 import com.yunsoft.mvpdemo.R;
-import com.yunsoft.mvpdemo.dagger.Car;
-import com.yunsoft.mvpdemo.dagger.CarModule;
-import com.yunsoft.mvpdemo.dagger.Engine;
 import com.yunsoft.mvpdemo.data.LocalUserInfo;
 import com.yunsoft.mvpdemo.mvp.BaseMvpActivity;
 
 import javax.inject.Inject;
-
-import dagger.android.AndroidInjection;
-import dagger.android.AndroidInjector;
-import dagger.releasablereferences.ForReleasableReferences;
-import dagger.releasablereferences.ReleasableReferenceManager;
 
 /**
  * Author: yangyunfeng

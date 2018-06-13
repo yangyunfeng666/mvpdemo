@@ -1,6 +1,7 @@
 package com.yunsoft.mvpdemo.activity;
 
-import com.yunsoft.mvpdemo.reactnative.PreLoadReactActivity;
+
+import com.yunsoft.reactnativeupdate.PreLoadReactActivity;
 
 /**
  * Author: yangyunfeng
@@ -8,7 +9,7 @@ import com.yunsoft.mvpdemo.reactnative.PreLoadReactActivity;
  * Description:this is ReactNativeActivity
  */
 
-public class ReactNativeActivity extends PreLoadReactActivity  {
+public class ReactNativeActivity extends PreLoadReactActivity {
 
     @javax.annotation.Nullable
     @Override

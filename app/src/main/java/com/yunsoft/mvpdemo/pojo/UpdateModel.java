@@ -1,4 +1,4 @@
-package com.yunsoft.mvpdemo.reactnative;
+package com.yunsoft.mvpdemo.pojo;
 
 /**
  * Author: yangyunfeng
@@ -11,12 +11,23 @@ public class UpdateModel {
     private String old_version;//旧版本
     private boolean allUpdate;//是否全量更新
     private boolean backToOld;//是否回退
+    private String downurl;//更新地址
 
-    public UpdateModel(String now_version, String old_version, boolean allUpdate, boolean backToOld) {
+    public UpdateModel(String now_version, String old_version, boolean allUpdate, boolean backToOld, String downurl) {
         this.now_version = now_version;
         this.old_version = old_version;
         this.allUpdate = allUpdate;
         this.backToOld = backToOld;
+        this.downurl = downurl;
+    }
+
+
+    public String getDownurl() {
+        return downurl;
+    }
+
+    public void setDownurl(String downurl) {
+        this.downurl = downurl;
     }
 
     public String getNow_version() {

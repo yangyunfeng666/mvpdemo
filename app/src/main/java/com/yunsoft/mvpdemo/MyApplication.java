@@ -2,6 +2,8 @@ package com.yunsoft.mvpdemo;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.Context;
+import android.support.multidex.MultiDex;
 
 import com.facebook.react.ReactApplication;
 import com.facebook.react.ReactNativeHost;
@@ -9,6 +11,7 @@ import com.facebook.react.ReactPackage;
 import com.facebook.react.shell.MainReactPackage;
 import com.facebook.soloader.SoLoader;
 import com.kye.basemodule.log.KyeLogUtils;
+import com.tencent.bugly.beta.Beta;
 import com.yunsoft.mvpdemo.dagger.ActivityComponent;
 import com.yunsoft.mvpdemo.dagger.AppComponent;
 import com.yunsoft.mvpdemo.dagger.AppModule;
@@ -22,7 +25,7 @@ import com.yunsoft.mvpdemo.db.DaoSession;
 import com.yunsoft.mvpdemo.db.DataRepository;
 import com.yunsoft.mvpdemo.persistence.perf.SharePreHelper;
 import com.yunsoft.mvpdemo.persistence.sqlite.UpdateOpenHelper;
-import com.yunsoft.mvpdemo.reactnative.FileConstant;
+import com.yunsoft.reactnativeupdate.FileConstant;
 
 import org.greenrobot.greendao.database.Database;
 
@@ -42,7 +45,6 @@ import dagger.android.HasActivityInjector;
  */
 
 public class MyApplication extends Application implements HasActivityInjector ,ReactApplication {
-
     private static MyApplication mInstance;
 
     private DaoSession daoSession;
@@ -80,6 +82,13 @@ public class MyApplication extends Application implements HasActivityInjector ,R
         mAppExecutors = new AppExecutors();
     }
 
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
+        //安装tinker
+        Beta.installTinker();
+    }
 
     private void setDataBase() {
         //这里使用了加密的数据库，加密的数据库密码是 dddd
@@ -151,9 +160,9 @@ public class MyApplication extends Application implements HasActivityInjector ,R
             protected String getJSBundleFile() {
                 if("".equals(version)) return super.getJSBundleFile();
                 //判断新版本的bundle文件时候存在
-                File file = new File (FileConstant.JS_BUNDLE_LOCAL_PATH+version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
+                File file = new File (FileConstant.getInstance().JS_BUNDLE_LOCAL_PATH+version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE);
                 if(file != null && file.exists()) {
-                    return FileConstant.JS_BUNDLE_LOCAL_PATH+version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE;
+                    return FileConstant.getInstance().JS_BUNDLE_LOCAL_PATH+version+FileConstant.SPLEX+FileConstant.JS_BUNDLE_LOCAL_FILE;
                 } else {
                     return super.getJSBundleFile();
                 }

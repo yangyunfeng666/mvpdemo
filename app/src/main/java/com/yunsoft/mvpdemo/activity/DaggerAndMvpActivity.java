@@ -6,14 +6,10 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.yunsoft.mvpdemo.R;
-import com.yunsoft.mvpdemo.dagger.CarModule;
-import com.yunsoft.mvpdemo.dagger.Engine;
 import com.yunsoft.mvpdemo.data.LocalUserInfo;
 import com.yunsoft.mvpdemo.mvp.BaseMvpActivity;
 
 import javax.inject.Inject;
-
-import dagger.Component;
 
 /**
  * Author: yangyunfeng
@@ -44,7 +40,6 @@ public class DaggerAndMvpActivity extends BaseMvpActivity implements DaggerMvpCo
             @Override
             public void onClick(View v) {
                 presenter.phoneLogin("13265797978","ab244795339868d6e9d35ed7e7de7e3b","104.22","12.2","31231213233");
-
             }
         });
     }
