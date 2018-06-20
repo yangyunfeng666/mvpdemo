@@ -1,6 +1,7 @@
 package com.yunsoft.mvpdemo.db;
 
 import android.arch.lifecycle.LiveData;
+import android.arch.paging.DataSource;
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
@@ -37,6 +38,10 @@ public interface LocalUserDao {
     List<showData> quert(List<Integer> ages );
     @Query("select * from localuser")
     LiveData<List<LocalUser>> quertAllLocalUser();
+
+    //按照名字排序查询
+    @Query("SELECT * FROM localuser ORDER BY username ASC")
+    public abstract DataSource.Factory<Integer, LocalUser> usersByLastName();
 
     public class showData{
         //这里必须要get set属性

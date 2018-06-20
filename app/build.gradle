@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 apply from: 'tinker-support.gradle'
+apply plugin: "androidx.navigation.safeargs"//navigation
 //定义基本APP
 def APP = rootProject.ext.APP
 //定义友盟
@@ -124,11 +125,11 @@ android {
             signingConfig signingConfigs.debug
         }
     }
+
     compileOptions {
         targetCompatibility 1.8
         sourceCompatibility 1.8
     }
-
 }
 
 //greendao文件配置
@@ -192,4 +193,26 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:$JAR.dagger"
 //    implementation files('libs/download_1.1.3.332_4478.jar')
 
+    //pageing
+    def paging_version = "1.0.0"
+    implementation "android.arch.paging:runtime:$paging_version"
+    // alternatively - without Android dependencies for testing
+    testImplementation "android.arch.paging:common:$paging_version"
+    // optional - RxJava support, currently in release candidate
+    implementation "android.arch.paging:rxjava2:1.0.0-rc1"
+
+//    //navigation
+//    def nav_version = "1.0.0-alpha02"
+//    implementation "android.arch.navigation:navigation-fragment:$nav_version" // use -ktx for Kotlin
+//    implementation "android.arch.navigation:navigation-ui:$nav_version" // use -ktx for Kotlin
+//    // optional - Test helpers
+//    androidTestImplementation "android.arch.navigation:navigation-testing:$nav_version" // use -ktx for Kotlin
+
+    //workmanager
+    def work_version = "1.0.0-alpha03"
+    implementation "android.arch.work:work-runtime:$work_version" // use -ktx for Kotlin
+    // optional - Firebase JobDispatcher support
+    implementation "android.arch.work:work-firebase:$work_version"
+    // optional - Test helpers
+    androidTestImplementation "android.arch.work:work-testing:$work_version"
 }

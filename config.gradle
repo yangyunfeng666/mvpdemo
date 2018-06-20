@@ -16,7 +16,7 @@ ext {
     ]
 
     JAR =[//包文件的版本
-            supportVersion : "27.1.1",
+            supportVersion : "27.1.0",
             retrofitversion : "2.3.0",
             logginginterceptor:"3.2.0",
             rxjava:"2.1.7",

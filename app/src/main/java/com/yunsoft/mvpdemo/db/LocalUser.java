@@ -2,7 +2,6 @@ package com.yunsoft.mvpdemo.db;
 
 import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Index;
 import android.arch.persistence.room.PrimaryKey;
 
 /**
@@ -20,6 +19,17 @@ public class LocalUser {
     private String sex;
     private int age;
     private String publics;
+
+    public LocalUser() {
+    }
+
+    private LocalUser(Builder builder) {
+        setId(builder.id);
+        setUsername(builder.username);
+        setSex(builder.sex);
+        setAge(builder.age);
+        setPublics(builder.publics);
+    }
 
     public String getPublics() {
         return publics;
@@ -70,5 +80,51 @@ public class LocalUser {
                 ", age=" + age +
                 ", publics='" + publics + '\'' +
                 '}';
+    }
+
+
+    @Override
+    public boolean equals(Object obj) {
+        return super.equals(obj);
+    }
+
+    public static final class Builder {
+        private int id;
+        private String username;
+        private String sex;
+        private int age;
+        private String publics;
+
+        public Builder() {
+        }
+
+        public Builder id(int val) {
+            id = val;
+            return this;
+        }
+
+        public Builder username(String val) {
+            username = val;
+            return this;
+        }
+
+        public Builder sex(String val) {
+            sex = val;
+            return this;
+        }
+
+        public Builder age(int val) {
+            age = val;
+            return this;
+        }
+
+        public Builder publics(String val) {
+            publics = val;
+            return this;
+        }
+
+        public LocalUser build() {
+            return new LocalUser(this);
+        }
     }
 }

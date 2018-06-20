@@ -51,6 +51,9 @@
         <!--<activity android:name=".activity.ReactNativeActivityBak"></activity>-->
         <activity android:name=".activity.TinkerHotFixActivity"></activity>
         <activity android:name=".activity.ReactiveActivity"></activity>
+        <activity android:name=".activity.PageActivity"></activity>
+
+
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>
        
         <receiver android:name=".broadcast.MyBroadCastReciver"
