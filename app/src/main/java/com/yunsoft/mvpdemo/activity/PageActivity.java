@@ -45,15 +45,15 @@ public class PageActivity extends AppCompatActivity {
             @Override
             public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
                 if (modelClass.isAssignableFrom(LocalUserViewModel.class)) {
-                    return (T) new LocalUserViewModel(((MyApplication) getApplication()).getDataBase().LocalUserDao());
+                    //声明LocalUserViewModel的构造方法
+                    return (T) new LocalUserViewModel(((MyApplication) getApplication()).getDataBase().LocalUserDao(),((MyApplication) getApplication()).getAppExecutors().diskIO());
                 }
-
                 throw new IllegalArgumentException("not instance ");
             }
         }).get(LocalUserViewModel.class);
         recycle_view.setAdapter(adapter);
         //localUserViewModel的数据发生改变，更新adapter
-        localUserViewModel.pagedListLiveData.observe(this,pageList->adapter.submitList(pageList));
+        localUserViewModel.getPagedListLiveData().observe(this,pageList->adapter.submitList(pageList));
 
         button.setOnClickListener(new View.OnClickListener() {
             @Override

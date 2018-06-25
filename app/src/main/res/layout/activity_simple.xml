@@ -151,6 +151,16 @@
             android:layout_height="wrap_content"
             android:text="pageList 数据分页" />
 
+
+        <Button
+            android:id="@+id/workManager_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="workManager" />
+
+
+
+
     </LinearLayout>
 
 </ScrollView>

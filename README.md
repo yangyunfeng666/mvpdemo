@@ -37,7 +37,9 @@
 * view：自定义的view 
 
 
+git git@172.20.8.45:android_compoment/mvpdemo.git
 
+git@github.com:yangyunfeng666/mvpdemo.git
 
 
 

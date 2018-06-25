@@ -3,7 +3,8 @@
 apply from: "config.gradle" //基本配置文件
 
 buildscript {
-    
+    ext.kotlin_version = '1.2.50'
+
     repositories {
         google()
         jcenter()
@@ -19,7 +20,8 @@ buildscript {
         //tinker
         classpath "com.tencent.bugly:tinker-support:latest.release"
         classpath "android.arch.navigation:navigation-safe-args-gradle-plugin:1.0.0-alpha02"
-}
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
 }
 
 allprojects {

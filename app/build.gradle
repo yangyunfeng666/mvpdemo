@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.greenrobot.greendao' // apply plugin
 apply from: 'tinker-support.gradle'
 apply plugin: "androidx.navigation.safeargs"//navigation
@@ -215,4 +217,8 @@ dependencies {
     implementation "android.arch.work:work-firebase:$work_version"
     // optional - Test helpers
     androidTestImplementation "android.arch.work:work-testing:$work_version"
+    implementation"org.jetbrains.kotlin:kotlin-stdlib-jre7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

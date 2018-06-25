@@ -22,7 +22,8 @@
         android:supportsRtl="true"
         android:name=".MyApplication"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.SimpleActivity">
+        <activity android:name=".activity.kotlinActivity">
+        <!--<activity android:name=".activity.SimpleActivity">-->
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -52,6 +53,8 @@
         <activity android:name=".activity.TinkerHotFixActivity"></activity>
         <activity android:name=".activity.ReactiveActivity"></activity>
         <activity android:name=".activity.PageActivity"></activity>
+        <activity android:name=".activity.WorkManagerActivity"></activity>
+        <!--<activity android:name=".activity.KotlinActivity"></activity>-->
 
 
         <activity android:name="com.facebook.react.devsupport.DevSettingsActivity"/>

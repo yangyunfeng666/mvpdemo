@@ -52,4 +52,9 @@ public abstract class LocalDatabase extends RoomDatabase {
                     + " ADD COLUMN pub_year INTEGER");
         }
     };
+
+    @Override
+    public void clearAllTables() {
+
+    }
 }

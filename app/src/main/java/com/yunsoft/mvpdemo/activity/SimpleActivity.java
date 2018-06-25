@@ -49,6 +49,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
     private Button react_view;// react_view 例子
     private Button tinker_view;// tinker热修复 例子
     private Button page_view;//page 例子
+    private Button workManager_view;//workManager 例子
     private TextView show_txt;
     private SimplePresenter presenter;
     private Button load_btn;
@@ -82,6 +83,7 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
         viewlivelift_view = findViewById(R.id.viewlivelift_view);
         show_txt = findViewById(R.id.show_txt);
         tinker_view = findViewById(R.id.tinker_view);
+        workManager_view = findViewById(R.id.workManager_view);
        //presenter 对象声明
         presenter = new SimplePresenter(this);
         load_btn.setOnClickListener(new View.OnClickListener() {
@@ -240,6 +242,13 @@ public class SimpleActivity extends BaseMvpActivity implements SimpleView {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SimpleActivity.this,PageActivity.class);
+                startActivity(intent);
+            }
+        });
+        workManager_view.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SimpleActivity.this,WorkManagerActivity.class);
                 startActivity(intent);
             }
         });

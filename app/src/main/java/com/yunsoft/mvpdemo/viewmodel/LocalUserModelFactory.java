@@ -25,7 +25,7 @@ public class LocalUserModelFactory extends ViewModelProvider.NewInstanceFactory 
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
         if (modelClass.isAssignableFrom(LocalUserViewModel.class)) {
-            return (T) new LocalUserViewModel(((MyApplication) mApplication).getDataBase().LocalUserDao());
+            return (T) new LocalUserViewModel(((MyApplication) mApplication).getDataBase().LocalUserDao(),((MyApplication) mApplication).getAppExecutors().diskIO());
         }
 
         throw new IllegalArgumentException("not instance ");

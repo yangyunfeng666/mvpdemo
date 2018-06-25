@@ -16,6 +16,7 @@ public class CompressWork extends Worker {
     @NonNull
     @Override
     public Result doWork() {
+//        getInputData()
         Comparess();
         return Result.SUCCESS;
     }

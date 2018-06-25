@@ -8,6 +8,8 @@ import android.arch.paging.PagedList;
 import com.yunsoft.mvpdemo.db.LocalUser;
 import com.yunsoft.mvpdemo.db.LocalUserDao;
 
+import java.util.concurrent.Executor;
+
 /**
  * Author: yangyunfeng
  * Date: 公元2018-6-15 16:33
@@ -18,8 +20,14 @@ public class LocalUserViewModel extends ViewModel {
     //LiveData 包含的有分页数据的
     public LiveData<PagedList<LocalUser>> pagedListLiveData;
 
-    public LocalUserViewModel(LocalUserDao dao){
+    public LocalUserViewModel(LocalUserDao dao, Executor executor){
         //从dao中得到20个数据
-        pagedListLiveData = new LivePagedListBuilder<>(dao.usersByLastName(),20).build();
+        PagedList.Config.Builder builder = new  PagedList.Config.Builder();
+        builder.setPageSize(20).setPrefetchDistance(100).setEnablePlaceholders(false);
+        pagedListLiveData = new LivePagedListBuilder<>(dao.usersByLastName(),builder.build()).setFetchExecutor(executor).build();
+    }
+
+    public LiveData<PagedList<LocalUser>> getPagedListLiveData() {
+        return pagedListLiveData;
     }
 }

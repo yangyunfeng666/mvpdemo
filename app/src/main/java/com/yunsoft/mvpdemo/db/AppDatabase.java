@@ -4,11 +4,9 @@ import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;
 import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
-import android.arch.persistence.room.TypeConverter;
 import android.arch.persistence.room.TypeConverters;
 import android.arch.persistence.room.migration.Migration;
 import android.content.Context;
-import android.print.PrintAttributes;
 import android.support.annotation.NonNull;
 import android.util.Log;
 
@@ -31,6 +29,12 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract BookDao BookDao();
     private static String Db_name = "Mydb.db";//定义数据的名称
     private  static volatile AppDatabase mInstance;//单例定义代码
+
+    @Override
+    public void clearAllTables() {
+
+    }
+
     /**
      * 返回单例对象
      * @param context
